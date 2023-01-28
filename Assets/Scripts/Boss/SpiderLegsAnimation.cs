@@ -75,7 +75,6 @@ public class SpiderLegsAnimation : MonoBehaviour
 
     void FixedUpdate()
     {
-        print(velocity);
         velocity = transform.position - lastBodyPos;
         velocity = (velocity + smoothness * lastVelocity) / (smoothness + 1f);
 
