@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     public int health;
+    [SerializeField] protected WarnBehavior warnBehavior;
 
     public void ChangeHealth(int amount)
     {

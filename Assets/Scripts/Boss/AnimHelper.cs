@@ -10,4 +10,8 @@ public class AnimHelper : MonoBehaviour
     {
         boss.BeganJump();
     }
+    public void IceCubeThrown()
+    {
+        boss.CreateCubeProjectile();
+    }
 }
