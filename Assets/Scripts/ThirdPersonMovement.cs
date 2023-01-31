@@ -33,6 +33,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
+            print("MR.Will to to to");
             rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce, rigidBody.velocity.z);
         }
         else if (!isGrounded && rigidBody.velocity.y > 0)
