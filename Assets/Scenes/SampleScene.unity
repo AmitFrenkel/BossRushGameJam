@@ -784,7 +784,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506333545}
-  m_LocalRotation: {x: 0.086513594, y: 0.38880867, z: -0.03670131, w: 0.9165131}
+  m_LocalRotation: {x: 0.086513594, y: 0.38880864, z: -0.036701307, w: 0.91651314}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -986,7 +986,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 3
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 3
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -2161,6 +2161,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4789977736273164524, guid: c399a1c5186f1a243a72531d9e0223c7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99999845
+      objectReference: {fileID: 0}
+    - target: {fileID: -4789977736273164524, guid: c399a1c5186f1a243a72531d9e0223c7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0017489508
       objectReference: {fileID: 0}
     - target: {fileID: -4646033789412282953, guid: c399a1c5186f1a243a72531d9e0223c7,
         type: 3}
@@ -3404,7 +3414,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 3
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -3842,20 +3852,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1450678684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af2c780fb01d0042942df10a2737770, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e70b5293f1edca44b7767eae985b90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 8
-  moveSpeed: 10
-  groundDrag: 5
-  jumpForce: 13
-  jumpCooldown: 0.25
-  airMultiplier: 0.5
-  playerHeight: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  orienation: {fileID: 2020804301}
+  speed: 6
+  jumpForce: 8
+  lowJumpMultiplier: 2
 --- !u!4 &1458662617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8480422944256810269, guid: c399a1c5186f1a243a72531d9e0223c7,
@@ -4542,8 +4544,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 970235517}
-  m_Follow: {fileID: 970235517}
+  m_LookAt: {fileID: 1450678686}
+  m_Follow: {fileID: 1450678686}
   m_CommonLens: 1
   m_Lens:
     FieldOfView: 50
@@ -4589,7 +4591,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 180
+    m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -4605,7 +4607,7 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: -1
       m_LegacyVelocityFilterStrength: -1
   m_Heading:
-    m_Definition: 3
+    m_Definition: 2
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
