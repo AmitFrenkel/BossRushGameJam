@@ -25,11 +25,14 @@ public class BSpiderBehavior : EnemyStats
     [SerializeField] private SpiderLegsAnimation spiderLegsAnim;
     [SerializeField] private SpiderState state;
     [SerializeField] private bool followPlayer;
+    [Header("Areas -")]
+    [SerializeField] private Transform floor;
+    [SerializeField] private Transform cieling;
 
     //attacks
     [Header("Attacks -")]
+    [SerializeField] private List<int> attacks;//1 - ice cubes | 2 - ice spikes cieling
     [Header("IceCube Attack")]
-    [SerializeField] private List<int> attacks;//1 - ice cubes
     [SerializeField] private bool isAttacking;
     private int iceCubesLeft;
     [SerializeField] private Transform throwLocation;
@@ -37,7 +40,6 @@ public class BSpiderBehavior : EnemyStats
     [SerializeField] private Transform[] iceCubes;
     [Range(0, 90)]
     [SerializeField] private float throwAngle;
-
     [Range(0, 1)]
     [Tooltip("Using a values closer to 0 will make the agent throw with the lower force"
        + "down to the least possible force (highest angle) to reach the target.\n"
@@ -48,9 +50,16 @@ public class BSpiderBehavior : EnemyStats
         + "the agent will move closer until they come within range.")]
     private float MaxThrowForce = 25;
 
+    [Header("IceSpikes Ceiling Attack")]
+    private int iceSpikesLeft;
+    [SerializeField] private int spikePoolIndex;
+    [SerializeField] private Transform[] iceSpikes;
+    [SerializeField] private BoxCollider triggerFallCheck;
+
     [Header("Misc")]
     [Range(0, 10)]
     [SerializeField] private float stunTime;
+    [SerializeField] private Rigidbody rigidbody;
 
     private void Start()
     {
@@ -64,10 +73,15 @@ public class BSpiderBehavior : EnemyStats
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
+            attacks[0] = 1;
             AttackManager();
         }
-        if (!isAttacking)
+        else if (Input.GetKeyDown(KeyCode.J))
         {
+            attacks[0] = 2;
+            AttackManager();
+        }
+
             if (followPlayer)
                 agent.SetDestination(player.position);
 
@@ -81,7 +95,7 @@ public class BSpiderBehavior : EnemyStats
                 state = SpiderState.walking;
                 anim.SetInteger("State", 1);
             }
-        }
+        
     }
     public void AttackManager()
     {
@@ -92,6 +106,9 @@ public class BSpiderBehavior : EnemyStats
             case 1:
                 StartCoroutine(IceCubesAttack());
                 break;
+            case 2:
+                StartCoroutine(CielingSpikesAttack());
+                break;
             default:
                 break;
         }
@@ -100,8 +117,40 @@ public class BSpiderBehavior : EnemyStats
     {
         anim.Play("IceCubeThrow");
         agent.isStopped = true;
-        iceCubesLeft = 5;
+        iceCubesLeft = 1;
         while (iceCubesLeft > 0)
+        {
+            //Vector3 direction = Point - transform.position;
+            //Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.time);
+            yield return null;
+        }
+        anim.SetTrigger("StopAttack");
+        yield return new WaitForSeconds(stunTime);
+        anim.SetTrigger("ExitStun");
+        yield return new WaitForSeconds(2.5f);
+        agent.isStopped = false;
+        isAttacking = false;
+        followPlayer = true;
+    }
+    public IEnumerator CielingSpikesAttack()
+    {
+        while (Vector3.Distance(transform.position,cieling.position) >= 10)
+        {
+            agent.SetDestination(cieling.position);
+            yield return null;
+        }
+        anim.Play("CielingAttach");
+        triggerFallCheck.enabled = false;
+        iceSpikesLeft = 10;
+        while (iceSpikesLeft != 0)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(2);
+        anim.SetTrigger("StartFall");
+        agent.enabled = false;
+        while (!agent.enabled)
         {
             yield return null;
         }
@@ -113,13 +162,66 @@ public class BSpiderBehavior : EnemyStats
         isAttacking = false;
         followPlayer = true;
     }
+    public void StartSpikes()
+    {
+        StartCoroutine(CreateIceSpikes());
+    }
+    Vector3 RandomPointOnXZCircle(Vector3 center, float radius)
+    {
+        Vector3 offset = Random.insideUnitSphere * radius;
+        Vector3 pos = center + offset;
+        return pos;
+    }
+    public IEnumerator CreateIceSpikes()
+    {
+        iceSpikesLeft = 10;
+        while (iceSpikesLeft != 0)
+        {
+            int toDrop = Mathf.Min(Random.Range(2, 6), iceSpikesLeft);
+            for (int i = 0; i < toDrop; i++)
+            {
+                Transform spike = iceSpikes[spikePoolIndex];
+                Vector3 temp = RandomPointOnXZCircle(transform.position, 20);
+                spike.position = new Vector3(temp.x,transform.position.y, temp.z);
+                spike.gameObject.SetActive(true);
+                spike.GetComponent<Rigidbody>().isKinematic = false;
+                spike.GetChild(0).GetComponent<IceCubeProjectile>().GetComponent<IceCubeProjectile>().warnHold = warnBehavior.CreateWarnAtAndReturn(spike.position, spike,true);
+
+                iceSpikesLeft--;
+
+                spikePoolIndex++;
+                if (spikePoolIndex >= iceSpikes.Length)
+                    spikePoolIndex = 0;
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(2);
+        }
+    }
+    public void StartFall()
+    {
+        triggerFallCheck.enabled = true;
+        agent.enabled = false;
+        rigidbody.isKinematic = false;
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Floor"))
+        {
+            agent.enabled = true;
+            rigidbody.isKinematic = true;
+        }
+        else if (other.CompareTag("Ice"))
+        {
+            other.transform.parent.gameObject.SetActive(false);
+        }
+    }
     public void CreateCubeProjectile()
     {
         iceCubesLeft--;
         Transform cube = iceCubes[icePoolIndex];
-        cube.GetComponent<IceCubeProjectile>().warnHold = warnBehavior.CreateWarnAtAndReturn(playerLegs.position);
         cube.gameObject.SetActive(true);
         cube.position = throwLocation.position;
+        cube.GetComponent<IceCubeProjectile>().warnHold = warnBehavior.CreateWarnAtAndReturn(playerLegs.position, cube,false);
         Rigidbody rigid = cube.GetComponent<Rigidbody>();
         ForceRatio = Mathf.Clamp01(Vector3.Distance(transform.position, player.position) / 50);
 
@@ -150,7 +252,6 @@ public class BSpiderBehavior : EnemyStats
                     yield return new WaitForSecondsRealtime(0.01f);
                 }
                 spiderLegsAnim.ResetLegs();
-                print(true);
             }
             else
             {
@@ -163,7 +264,6 @@ public class BSpiderBehavior : EnemyStats
     }
     public void BeganJump()
     {
-        print(true);
         isMovingWalls = false;
         agentLinkMover.allowedToMove = true;
     }

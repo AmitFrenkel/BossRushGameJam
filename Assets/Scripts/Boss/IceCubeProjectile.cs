@@ -10,6 +10,7 @@ public class IceCubeProjectile : MonoBehaviour
     public GameObject warnHold;
     public GameObject effect;
     public GameObject dangerArea;
+    public UnityEvent todoAfterGone;
     private void Start()
     {
         renderer = GetComponent<MeshRenderer>();
@@ -37,7 +38,6 @@ public class IceCubeProjectile : MonoBehaviour
         dangerArea.SetActive(false);
         yield return new WaitForSeconds(0.65f);
         effect.SetActive(false);
-        gameObject.SetActive(false);
-        renderer.enabled = true;
+        todoAfterGone.Invoke();
     }
 }
