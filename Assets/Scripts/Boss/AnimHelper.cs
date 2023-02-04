@@ -14,4 +14,12 @@ public class AnimHelper : MonoBehaviour
     {
         boss.CreateCubeProjectile();
     }
+    public void IceSpikeStart()
+    {
+        boss.StartSpikes();
+    }
+    public void StartFall()
+    {
+        boss.StartFall();
+    }
 }
