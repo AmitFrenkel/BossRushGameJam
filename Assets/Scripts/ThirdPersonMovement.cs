@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
+    [SerializeField] private AbstractAbility[] abilities;
     public float speed = 10f;
     public float jumpForce = 10f;
     public float lowJumpMultiplier = 2f;
 
     private Rigidbody rigidBody;
     private bool isGrounded;
-
+    private int currentAbility;
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -39,6 +40,21 @@ public class ThirdPersonMovement : MonoBehaviour
         else if (!isGrounded && rigidBody.velocity.y > 0)
         {
             rigidBody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
+
+        // Change ability
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            currentAbility++;
+        }
+        
+        // short Range ability in comboSystem script
+        // dodge ability in DodgeRoll script
+
+        //Long range ability
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            abilities[currentAbility].ActivateAbility();
         }
     }
 

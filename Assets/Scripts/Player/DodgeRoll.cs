@@ -17,7 +17,7 @@ public class DodgeRoll : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && dodgeElapsedTime + iframeDuration > iframeElapsedTime)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dodgeElapsedTime + iframeDuration > iframeElapsedTime)
         {
             print("DODGE");
             dodgeElapsedTime = 0f;
