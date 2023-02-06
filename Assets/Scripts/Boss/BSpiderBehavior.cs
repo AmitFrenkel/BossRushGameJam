@@ -117,7 +117,7 @@ public class BSpiderBehavior : EnemyStats
     {
         anim.Play("IceCubeThrow");
         agent.isStopped = true;
-        iceCubesLeft = 1;
+        iceCubesLeft = 5;
         while (iceCubesLeft > 0)
         {
             //Vector3 direction = Point - transform.position;

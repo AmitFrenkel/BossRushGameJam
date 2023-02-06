@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
     Vector3 moveDirection;
     Rigidbody rb;
+    [SerializeField] private Animator playerAnim;
     
     void Start()
     {
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        playerAnim.SetBool("IsGrounded", grounded);
 
         MyInput();
         SpeedControl();
@@ -53,9 +55,15 @@ public class PlayerMovement : MonoBehaviour
         
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        print(verticalInput);
+        if (verticalInput == 0 && horizontalInput == 0)
+        {
+            playerAnim.SetInteger("State", 0);
+        }
         
         if (Input.GetKey(KeyCode.Space) && readyToJump && grounded)
         {
+            playerAnim.SetInteger("State", 2);
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
@@ -67,9 +75,14 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orienation.forward * verticalInput + orienation.right * horizontalInput;
 
         if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            playerAnim.SetInteger("State", 1);
+        }
         else
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * 10f, ForceMode.Force);
+        }
     }
     private void SpeedControl()
     {
