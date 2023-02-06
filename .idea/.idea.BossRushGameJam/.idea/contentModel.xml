@@ -84,6 +84,7 @@
           </e>
           <e p="Player" t="Include">
             <e p="AbstractAbility.cs" t="Include" />
+            <e p="BeamAim.cs" t="Include" />
             <e p="CameraController.cs" t="Include" />
             <e p="CombSystem.cs" t="Include" />
             <e p="DodgeRoll.cs" t="Include" />
