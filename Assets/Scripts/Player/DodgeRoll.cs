@@ -9,6 +9,7 @@ public class DodgeRoll : MonoBehaviour
     private Rigidbody rigidbody;
     private float dodgeElapsedTime = 0f;
     private float iframeElapsedTime = 0f;
+    public static bool canBeDamaged = true;
 
     void Start()
     {
@@ -32,11 +33,11 @@ public class DodgeRoll : MonoBehaviour
 
         if (iframeElapsedTime >= iframeDuration)
         {
-            // rigidbody.detectCollisions = true;
+            canBeDamaged = false;
         }
         else
         {
-            // rigidbody.detectCollisions = false;
+            canBeDamaged = true;
         }
     }
 }

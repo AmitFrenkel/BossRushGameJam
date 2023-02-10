@@ -10,14 +10,14 @@ public abstract class AbstractAbility : MonoBehaviour
     protected float cooldownTimer = 1;
     protected Sprite icon;
     protected bool canUse;
+    protected int power;
+    private float currentTimer;
 
     public bool CanUse
     {
         get => canUse;
         set => canUse = value;
     }
-
-    private float currentTimer;
 
     private void Start()
     {

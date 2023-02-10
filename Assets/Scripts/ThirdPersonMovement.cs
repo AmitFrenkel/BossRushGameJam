@@ -5,6 +5,8 @@ using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
     [SerializeField] private AbstractAbility[] abilities;
+    [SerializeField] private GameObject beam;
+    [SerializeField] private Material beamMaterial;
     public float speed = 10f;
     public float jumpForce = 10f;
     public float lowJumpMultiplier = 2f;
@@ -21,9 +23,16 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Update()
     {
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
+        if (!CombSystem.canMove)
+        {
+            horizontal = 0;
+            vertical = 0;
+        }
+        
         if (vertical == 0 && horizontal == 0)
         {
             anim.SetInteger("State", 0);
@@ -75,9 +84,14 @@ public class ThirdPersonMovement : MonoBehaviour
         // dodge ability in DodgeRoll script
 
         //Long range ability
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1))
         {
-            abilities[currentAbility].ActivateAbility();
+            beam.SetActive(true);
+            StartCoroutine(StartOrStopBeam(true));
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            StartCoroutine(StartOrStopBeam(false));
         }
     }
 
@@ -91,5 +105,26 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         isGrounded = false;
         anim.SetBool("IsGrounded", false);
+    }
+
+    private IEnumerator StartOrStopBeam(bool start)
+    {
+        if (start)
+        {
+            while (beamMaterial.GetFloat("_DissolveAmmount") > 0.05f)
+            {
+                beamMaterial.SetFloat("_DissolveAmmount", -0.002f);
+                yield return new WaitForSeconds(0.02f);
+            }
+        }
+        else
+        {
+            while (beamMaterial.GetFloat("_DissolveAmmount") < 1)
+            {
+                beamMaterial.SetFloat("_DissolveAmmount", +0.002f);
+                yield return new WaitForSeconds(0.02f);
+            }  
+            beam.SetActive(false);
+        }
     }
 }

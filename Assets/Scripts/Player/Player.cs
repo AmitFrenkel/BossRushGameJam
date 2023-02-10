@@ -7,21 +7,41 @@ using UnityEngine;
 // Player class
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int health;
-    [SerializeField] private string shortRangeAbility, longRangeAbility, specialAbility;
+    [SerializeField] private int maxHealth,currentHealth;
+    [SerializeField] private string shortRangeAbility, longRangeAbility;
+    private AbstractAbility[] specialAbility;
 
     private void Start()
     {
-        health = PlayerPrefs.GetInt("health");
+        maxHealth = PlayerPrefs.GetInt("maxHealth");
         shortRangeAbility = PlayerPrefs.GetString("shortRangeAbility");
         longRangeAbility = PlayerPrefs.GetString("longRangeAbility");
-        specialAbility = PlayerPrefs.GetString("specialAbility");
+        specialAbility = JsonUtility.FromJson<AbstractAbility[]>(PlayerPrefs.GetString("specialAbility"));
     }
 
-    public int Health
+    public void IncreaseMacHealth(int value)
     {
-        get => health;
-        set => health = value;
+        maxHealth += value;
+        currentHealth = maxHealth;
+    }
+
+    public void ChangeHealth(int value)
+    {
+        if (DodgeRoll.canBeDamaged)
+        {
+            currentHealth += value;
+
+        }
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 
     public string ShortRangeAbility
@@ -36,17 +56,18 @@ public class Player : MonoBehaviour
         set => longRangeAbility = value;
     }
 
-    public string SpecialAbility
-    {
-        get => specialAbility;
-        set => specialAbility = value;
-    }
+    // public string SpecialAbility
+    // {
+    //     get => specialAbility;
+    //     set => specialAbility = value;
+    // }
 
     private void Update()
     {
         PlayerPrefs.SetString("shortRangeAbility",shortRangeAbility);
         PlayerPrefs.SetString("longRangeAbility",longRangeAbility);
-        PlayerPrefs.SetString("specialAbility",specialAbility);
-        PlayerPrefs.SetInt("health",health);
+        PlayerPrefs.SetString("specialAbility",JsonUtility.ToJson(specialAbility));
+        PlayerPrefs.SetInt("maxHealth",maxHealth);
     }
+
 }

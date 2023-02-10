@@ -22,4 +22,5 @@ public class AnimHelper : MonoBehaviour
     {
         boss.StartFall();
     }
+    
 }

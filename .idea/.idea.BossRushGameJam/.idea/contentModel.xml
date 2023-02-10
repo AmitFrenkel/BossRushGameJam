@@ -91,6 +91,7 @@
             <e p="LaserBeamAbility.cs" t="Include" />
             <e p="Orienation.cs" t="Include" />
             <e p="Player.cs" t="Include" />
+            <e p="PlayerAnimHelper.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
           </e>
           <e p="ThirdPersonMovement.cs" t="Include" />
