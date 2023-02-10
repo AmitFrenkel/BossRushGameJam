@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CombSystem : MonoBehaviour
 {
-    private Animator anim;
+    [SerializeField] private Animator anim;
     public float cooldownTime = 2f;
     private float nextFireTime = 0f;
     public static int noOfClicks = 0;
@@ -13,20 +13,20 @@ public class CombSystem : MonoBehaviour
  
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        // anim = GetComponent<Animator>();
     }
     void Update()
     {
  
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("hit1"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             anim.SetBool("hit1", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("hit2"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
             anim.SetBool("hit2", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("hit3"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
         {
             anim.SetBool("hit3", false);
             noOfClicks = 0;
@@ -61,12 +61,12 @@ public class CombSystem : MonoBehaviour
         }
         noOfClicks = Mathf.Clamp(noOfClicks, 0, 3);
  
-        if (noOfClicks >= 2 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("hit1"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             anim.SetBool("hit1", false);
             anim.SetBool("hit2", true);
         }
-        if (noOfClicks >= 3 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("hit2"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
             anim.SetBool("hit2", false);
             anim.SetBool("hit3", true);

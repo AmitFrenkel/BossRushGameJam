@@ -32,11 +32,11 @@ public class DodgeRoll : MonoBehaviour
 
         if (iframeElapsedTime >= iframeDuration)
         {
-            rigidbody.detectCollisions = true;
+            // rigidbody.detectCollisions = true;
         }
         else
         {
-            rigidbody.detectCollisions = false;
+            // rigidbody.detectCollisions = false;
         }
     }
 }

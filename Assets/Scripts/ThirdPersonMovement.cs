@@ -56,6 +56,19 @@ public class ThirdPersonMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             currentAbility++;
+            if (currentAbility == abilities.Length)
+            {
+                currentAbility = 0;
+            }
+
+            while (!abilities[currentAbility].CanUse)
+            {
+                currentAbility++;
+                if (currentAbility == abilities.Length)
+                {
+                    currentAbility = 0;
+                }
+            }
         }
         
         // short Range ability in comboSystem script

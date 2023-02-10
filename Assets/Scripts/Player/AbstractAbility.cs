@@ -10,6 +10,13 @@ public abstract class AbstractAbility : MonoBehaviour
     protected float cooldownTimer = 1;
     protected Sprite icon;
     protected bool canUse;
+
+    public bool CanUse
+    {
+        get => canUse;
+        set => canUse = value;
+    }
+
     private float currentTimer;
 
     private void Start()
@@ -37,4 +44,6 @@ public abstract class AbstractAbility : MonoBehaviour
         canUse = true;
         currentTimer = cooldownTimer;
     }
+    
+    
 }

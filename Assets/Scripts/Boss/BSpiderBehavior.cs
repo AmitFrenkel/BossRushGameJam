@@ -82,19 +82,19 @@ public class BSpiderBehavior : EnemyStats
             AttackManager();
         }
 
-            if (followPlayer)
-                agent.SetDestination(player.position);
+        if (followPlayer)
+            agent.SetDestination(player.position);
 
-            if (agent.velocity == Vector3.zero)
-            {
-                state = SpiderState.idle;
-                anim.SetInteger("State", 0);
-            }
-            else
-            {
-                state = SpiderState.walking;
-                anim.SetInteger("State", 1);
-            }
+        if (agent.velocity == Vector3.zero)
+        {
+            state = SpiderState.idle;
+            anim.SetInteger("State", 0);
+        }
+        else
+        {
+            state = SpiderState.walking;
+            anim.SetInteger("State", 1);
+        }
         
     }
     public void AttackManager()
