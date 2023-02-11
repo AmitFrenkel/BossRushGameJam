@@ -10,10 +10,11 @@ public class BSpiderBehavior : EnemyStats
         intro,
         idle,
         jumping,
-        walking
+        walking,
+        closeAttack
     }
 
-    private NavMeshAgent agent;
+    [SerializeField] private NavMeshAgent agent;
 
     [Header("Behavior -")]
     [SerializeField] private bool isMovingWalls;
@@ -31,13 +32,14 @@ public class BSpiderBehavior : EnemyStats
 
     //attacks
     [Header("Attacks -")]
-    [SerializeField] private List<int> attacks;//1 - ice cubes | 2 - ice spikes cieling
+    [SerializeField] private List<int> attacks;//1 - ice cubes | 2 - ice spikes cieling | 3 - close attack
     [Header("IceCube Attack")]
     [SerializeField] private bool isAttacking;
     private int iceCubesLeft;
     [SerializeField] private Transform throwLocation;
     [SerializeField] private int icePoolIndex;
     [SerializeField] private Transform[] iceCubes;
+    [SerializeField] private Transform[] throwingLocations;
     [Range(0, 90)]
     [SerializeField] private float throwAngle;
     [Range(0, 1)]
@@ -60,33 +62,49 @@ public class BSpiderBehavior : EnemyStats
     [Range(0, 10)]
     [SerializeField] private float stunTime;
     [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private bool onceCielingAttack;
 
     private void Start()
     {
-        //followPlayer = true;
-        agent = GetComponent<NavMeshAgent>();
         agent.autoTraverseOffMeshLink = false;
+        StartCoroutine(CooldownBetweenAttacks());
         StartCoroutine(CheckForJumps());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            attacks[0] = 1;
-            AttackManager();
-        }
-        else if (Input.GetKeyDown(KeyCode.J))
-        {
-            attacks[0] = 2;
-            AttackManager();
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    attacks[0] = 1;
+        //    AttackManager();
+        //}
+        // else if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //    attacks[0] = 2;
+        //    AttackManager();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    attacks[0] = 3;
+        //    AttackManager();
+        //}
         if (followPlayer)
         {
             agent.SetDestination(player.position);
-            if (Vector3.Distance(transform.position, player.position) <= 9.5f)
+            if (Vector3.Distance(transform.position, player.position) <= 11f && state != SpiderState.closeAttack)
             {
                 //Do Close attack
+                state = SpiderState.closeAttack;
+                attacks[0] = 3;
+                AttackManager();
+            }
+            if (health <= 50 && onceCielingAttack)
+            {
+                followPlayer = false;
+                onceCielingAttack = false;
+                StopCoroutine(CooldownBetweenAttacks());
+                attacks[0] = 2;
+                AttackManager();
             }
         }
 
@@ -114,12 +132,39 @@ public class BSpiderBehavior : EnemyStats
             case 2:
                 StartCoroutine(CielingSpikesAttack());
                 break;
+            case 3:
+                StartCoroutine(CloseAttack());
+                break;
             default:
                 break;
         }
     }
+    public IEnumerator CloseAttack()
+    {
+        followPlayer = true;
+        while (Vector3.Distance(transform.position, player.position) >= 12)
+        {
+            yield return null;
+        }
+        agent.enabled = false;
+        transform.parent.parent.LookAt(player);
+        agent.enabled = true;
+        followPlayer = false;
+        anim.Play("CloseAttack");
+        yield return new WaitForSeconds(4);
+        followPlayer = true;
+    }
     public IEnumerator IceCubesAttack()
     {
+        int location = Random.Range(0, 4);
+        agent.SetDestination(throwingLocations[location].position);
+        while (Vector3.Distance(transform.position, throwingLocations[location].position) > agent.stoppingDistance)
+        {
+            yield return null;
+        }
+        agent.enabled = false;
+        transform.parent.parent.LookAt(player);
+        agent.enabled = true;
         anim.Play("IceCubeThrow");
         agent.isStopped = true;
         iceCubesLeft = 5;
@@ -131,12 +176,13 @@ public class BSpiderBehavior : EnemyStats
             yield return null;
         }
         anim.SetTrigger("StopAttack");
-        yield return new WaitForSeconds(stunTime);
+        //yield return new WaitForSeconds(stunTime);
         anim.SetTrigger("ExitStun");
         yield return new WaitForSeconds(2.5f);
         agent.isStopped = false;
         isAttacking = false;
         followPlayer = true;
+        StartCoroutine(CooldownBetweenAttacks());
     }
     public IEnumerator CielingSpikesAttack()
     {
@@ -146,19 +192,24 @@ public class BSpiderBehavior : EnemyStats
             yield return null;
         }
         anim.Play("CielingAttach");
+        followPlayer = false;
         triggerFallCheck.enabled = false;
         iceSpikesLeft = 10;
         while (iceSpikesLeft != 0)
         {
             yield return null;
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         anim.SetTrigger("StartFall");
         agent.enabled = false;
-        while (!agent.enabled)
+        rigidbody.isKinematic = false;
+        while (transform.parent.parent.position.y > 3.6f)
         {
             yield return null;
         }
+        triggerFallCheck.enabled = true;
+        agent.enabled = true;
+        rigidbody.isKinematic = true;
         anim.SetTrigger("StopAttack");
         yield return new WaitForSeconds(stunTime);
         anim.SetTrigger("ExitStun");
@@ -166,6 +217,7 @@ public class BSpiderBehavior : EnemyStats
         agent.isStopped = false;
         isAttacking = false;
         followPlayer = true;
+        StartCoroutine(CooldownBetweenAttacks());
     }
     public void EndedEntrance()
     {
@@ -213,9 +265,9 @@ public class BSpiderBehavior : EnemyStats
     }
     public void StartFall()
     {
-        triggerFallCheck.enabled = true;
-        agent.enabled = false;
-        rigidbody.isKinematic = false;
+        //triggerFallCheck.enabled = true;
+        //agent.enabled = false;
+        //rigidbody.isKinematic = false;
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -356,5 +408,27 @@ public class BSpiderBehavior : EnemyStats
         public float Angle;
         public float DeltaXZ;
         public float DeltaY;
+    }
+
+    public IEnumerator CooldownBetweenAttacks()
+    {
+        int timer = Random.Range(10, 30);
+        yield return new WaitForSeconds(timer);
+        while (!followPlayer)
+        {
+            yield return null;
+        }
+        print(true);
+        switch (Random.Range(0,6))
+        {
+            case 0:
+                attacks[0] = 2;
+                AttackManager();
+                break;
+            default:
+                attacks[0] = 1;
+                AttackManager();
+                break;
+        }
     }
 }

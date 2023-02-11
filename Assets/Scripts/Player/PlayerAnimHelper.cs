@@ -5,21 +5,23 @@ using UnityEngine;
 public class PlayerAnimHelper : MonoBehaviour
 {
     [SerializeField] private GameObject trails;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private CombSystem comb;
+    public void EnableCollider()
     {
-        
+        comb.ToggleCollider(true);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void DisableCollider()
     {
-        
+        comb.ToggleCollider(false);
     }
 
     public void CanMove()
     {
         CombSystem.EnableMoving();
+    }
+    public void ForceTowardsEnemy()
+    {
+        comb.ForceForward();
     }
 
     public void EnableTrails()

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using UnityEngine.UI;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
@@ -14,6 +16,12 @@ public class ThirdPersonMovement : MonoBehaviour
     private Rigidbody rigidBody;
     private bool isGrounded;
     [SerializeField] private Animator anim;
+    [SerializeField] private MultiAimConstraint headConstraint;
+    [SerializeField] private Transform enemyNeck;
+    [SerializeField] private Transform cameraFront;
+
+    [SerializeField] private Transform laserPos;
+    [SerializeField] private Slider energyBar;
 
     private int currentAbility;
     private void Start()
@@ -27,12 +35,6 @@ public class ThirdPersonMovement : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        if (!CombSystem.canMove)
-        {
-            horizontal = 0;
-            vertical = 0;
-            rigidBody.velocity = Vector3.zero;
-        }
         
         if (vertical == 0 && horizontal == 0)
         {
@@ -40,6 +42,13 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         else
             anim.SetInteger("State", 1);
+
+        if (!CombSystem.canMove)
+        {
+            horizontal = 0;
+            vertical = 0;
+        }
+        print(CombSystem.canMove);
 
         Vector3 forward = Camera.main.transform.forward;
         forward.y = 0;
@@ -49,11 +58,13 @@ public class ThirdPersonMovement : MonoBehaviour
         right = right.normalized;
 
         Vector3 direction = forward * vertical + right * horizontal;
-        rigidBody.velocity = direction * speed + Vector3.up * rigidBody.velocity.y;
+        if (CombSystem.canMove)
+        {
+            rigidBody.velocity = direction * speed + Vector3.up * rigidBody.velocity.y;
+        }
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            print("MR.Will to to to");
             anim.SetInteger("State", 2);
             rigidBody.velocity = new Vector3(rigidBody.velocity.x, jumpForce, rigidBody.velocity.z);
         }
@@ -85,7 +96,7 @@ public class ThirdPersonMovement : MonoBehaviour
         // dodge ability in DodgeRoll script
 
         //Long range ability
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && energyBar.value > 0)
         {
             beam.SetActive(true);
             // StartCoroutine(StartOrStopBeam(true));
@@ -94,6 +105,34 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             // StartCoroutine(StartOrStopBeam(false));
             beam.SetActive(false);
+            StartCoroutine(LaserCharge());
+        }
+        else if (beam.activeSelf && energyBar.value == 0)
+        {
+            beam.SetActive(false);
+        }
+        RaycastHit hit;
+        if (Input.GetKey(KeyCode.Mouse1) && energyBar.value > 0)
+        {
+            energyBar.value -= 0.4f;
+            if (Physics.Raycast(laserPos.position,laserPos.forward, out hit, Mathf.Infinity))
+            {
+                Debug.DrawRay(laserPos.position, laserPos.forward);
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    hit.collider.GetComponent<EnemyStats>().ChangeHealth(-0.05f);
+                }
+                //print(hit.collider.gameObject.name);
+            }
+        }
+    }
+    public IEnumerator LaserCharge()
+    {
+        yield return new WaitForSeconds(1);
+        while (!Input.GetKey(KeyCode.Mouse1))
+        {
+            energyBar.value += 6f*Time.deltaTime;
+            yield return null;
         }
     }
 

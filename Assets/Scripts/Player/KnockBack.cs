@@ -17,8 +17,16 @@ public class KnockBack : MonoBehaviour
         
     }
 
-    public void GiveKnockBack(Transform item)
+    public void GiveKnockBack(Transform item, float speed)
     {
-        rigidbody.AddForce(-item.position.x, 0,-item.position.z);
+        CombSystem.canMove = false;
+        float distance = Mathf.Max(5, 5-Vector3.Distance(transform.position, item.position));
+        rigidbody.AddForce(new Vector3(transform.position.x - item.position.x, 0, transform.position.z - item.position.z) * distance*speed);
+        StartCoroutine(EnableMovement());
     } 
+    public IEnumerator EnableMovement()
+    {
+        yield return new WaitForSeconds(0.5f);
+        CombSystem.canMove = true;
+    }
 }

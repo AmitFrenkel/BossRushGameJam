@@ -4882,6 +4882,7 @@ GameObject:
   - component: {fileID: 5663839039674930258}
   - component: {fileID: 5663839039674930257}
   - component: {fileID: 5663839039674930256}
+  - component: {fileID: 3396186376667670625}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -4968,6 +4969,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &3396186376667670625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663839039674930262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de1702a86ef005449264fde8518e2ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 15
+  knockbackRange: 500
 --- !u!1 &7557777178718747338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4978,7 +4993,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4449970044530668084}
   - component: {fileID: 4175064097778164830}
-  - component: {fileID: 3611826359275682840}
+  - component: {fileID: 3216309671356982757}
   m_Layer: 6
   m_Name: IceSpike
   m_TagString: Ice
@@ -5018,19 +5033,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!65 &3611826359275682840
-BoxCollider:
+--- !u!114 &3216309671356982757
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7557777178718747338}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.3, z: 0.7}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c9a7e7546321094b963b97ca1978e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 100
 --- !u!1 &8541960296378300523
 GameObject:
   m_ObjectHideFlags: 0
