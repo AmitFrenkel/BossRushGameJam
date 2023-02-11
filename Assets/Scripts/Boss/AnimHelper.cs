@@ -22,5 +22,8 @@ public class AnimHelper : MonoBehaviour
     {
         boss.StartFall();
     }
-    
+    public void EntranceEnded()
+    {
+        boss.EndedEntrance();
+    }
 }

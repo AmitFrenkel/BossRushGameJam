@@ -81,20 +81,25 @@ public class BSpiderBehavior : EnemyStats
             attacks[0] = 2;
             AttackManager();
         }
-
         if (followPlayer)
+        {
             agent.SetDestination(player.position);
+            if (Vector3.Distance(transform.position, player.position) <= 9.5f)
+            {
+                //Do Close attack
+            }
+        }
 
         if (agent.velocity == Vector3.zero)
-        {
-            state = SpiderState.idle;
-            anim.SetInteger("State", 0);
-        }
-        else
-        {
-            state = SpiderState.walking;
-            anim.SetInteger("State", 1);
-        }
+            {
+                state = SpiderState.idle;
+                anim.SetInteger("State", 0);
+            }
+            else
+            {
+                state = SpiderState.walking;
+                anim.SetInteger("State", 1);
+            }
         
     }
     public void AttackManager()
@@ -160,6 +165,15 @@ public class BSpiderBehavior : EnemyStats
         yield return new WaitForSeconds(2.5f);
         agent.isStopped = false;
         isAttacking = false;
+        followPlayer = true;
+    }
+    public void EndedEntrance()
+    {
+        StartCoroutine(EntEnded());
+    }
+    private IEnumerator EntEnded()
+    {
+        yield return new WaitForSeconds(3);
         followPlayer = true;
     }
     public void StartSpikes()
