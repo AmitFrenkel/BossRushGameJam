@@ -31,6 +31,7 @@ public class ThirdPersonMovement : MonoBehaviour
         {
             horizontal = 0;
             vertical = 0;
+            rigidBody.velocity = Vector3.zero;
         }
         
         if (vertical == 0 && horizontal == 0)
@@ -87,11 +88,12 @@ public class ThirdPersonMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse1))
         {
             beam.SetActive(true);
-            StartCoroutine(StartOrStopBeam(true));
+            // StartCoroutine(StartOrStopBeam(true));
         }
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
-            StartCoroutine(StartOrStopBeam(false));
+            // StartCoroutine(StartOrStopBeam(false));
+            beam.SetActive(false);
         }
     }
 
@@ -107,24 +109,25 @@ public class ThirdPersonMovement : MonoBehaviour
         anim.SetBool("IsGrounded", false);
     }
 
-    private IEnumerator StartOrStopBeam(bool start)
-    {
-        if (start)
-        {
-            while (beamMaterial.GetFloat("_DissolveAmmount") > 0.05f)
-            {
-                beamMaterial.SetFloat("_DissolveAmmount", -0.002f);
-                yield return new WaitForSeconds(0.02f);
-            }
-        }
-        else
-        {
-            while (beamMaterial.GetFloat("_DissolveAmmount") < 1)
-            {
-                beamMaterial.SetFloat("_DissolveAmmount", +0.002f);
-                yield return new WaitForSeconds(0.02f);
-            }  
-            beam.SetActive(false);
-        }
-    }
+    // private IEnumerator StartOrStopBeam(bool start)
+    // {
+    //     if (start)
+    //     {
+    //         while (beamMaterial.GetFloat("_DissolveAmmount") > 0.05f)
+    //         {
+    //             beamMaterial.SetFloat("_DissolveAmmount", -0.001f);
+    //             yield return new WaitForSeconds(0.02f);
+    //         }
+    //     }
+    //     else
+    //     {
+    //         print("111"+beamMaterial.GetFloat("_DissolveAmmount"));
+    //         while (beamMaterial.GetFloat("_DissolveAmmount") < 1)
+    //         {
+    //             beamMaterial.SetFloat("_DissolveAmmount", +0.001f);
+    //             yield return new WaitForSeconds(0.02f);
+    //         }  
+    //         beam.SetActive(false);
+    //     }
+    // }
 }

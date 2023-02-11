@@ -18,26 +18,32 @@ public class DodgeRoll : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dodgeElapsedTime + iframeDuration > iframeElapsedTime)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             print("DODGE");
             dodgeElapsedTime = 0f;
             iframeElapsedTime = 0f;
 
-            Vector3 dodgeDirection = transform.forward * Input.GetAxisRaw("Horizontal") + transform.right * Input.GetAxisRaw("Vertical");
+            Vector3 dodgeDirection = transform.forward * Input.GetAxisRaw("Horizontal") +
+                                     transform.right * Input.GetAxisRaw("Vertical");
             rigidbody.AddForce(dodgeDirection * dodgeSpeed, ForceMode.Impulse);
-        }
 
-        dodgeElapsedTime += Time.deltaTime;
-        iframeElapsedTime += Time.deltaTime;
 
-        if (iframeElapsedTime >= iframeDuration)
-        {
-            canBeDamaged = false;
-        }
-        else
-        {
-            canBeDamaged = true;
+            dodgeElapsedTime += Time.deltaTime;
+            iframeElapsedTime += Time.deltaTime;
+
+            if (iframeElapsedTime >= iframeDuration)
+            {
+                canBeDamaged = false;
+                CombSystem.canMove = false;
+            }
+            else
+            {
+                canBeDamaged = true;
+                iframeElapsedTime = 0;
+                dodgeElapsedTime = 0;
+                CombSystem.canMove = true;
+            }
         }
     }
 }

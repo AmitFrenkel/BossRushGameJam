@@ -21,22 +21,17 @@
   <component name="ChangeListManager">
     <list default="true" id="7a737dd3-624f-467a-924a-afb853c6d800" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Attack1.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Attack1.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Attack2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Attack2.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Attack3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Attack3.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Micro_Head_Rigged.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Micro_Head_Rigged.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Effect/BeamShader.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Effect/BeamShader.shadergraph" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Effect/BeamVFX.vfx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Effect/BeamVFX.vfx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Effect/Shader Graphs_LaserBeam.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Effect/Shader Graphs_LaserBeam.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Boss/AnimHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Boss/AnimHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/AbstractAbility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/AbstractAbility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimHelper.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ThirdPersonMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ThirdPersonMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,14 +67,15 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/LaserBeamAbility.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/BeamAim.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Boss/BSpiderBehavior.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/AbstractAbility.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Boss/AnimHelper.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimHelper.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/Orienation.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimHelper.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/KnockBack.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ThirdPersonMovement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" />
       </list>
     </option>
   </component>
@@ -133,6 +129,7 @@
       <workItem from="1676048293349" duration="83000" />
       <workItem from="1676048389592" duration="1814000" />
       <workItem from="1676056263799" duration="8368000" />
+      <workItem from="1676101206141" duration="5918000" />
     </task>
     <servers />
   </component>

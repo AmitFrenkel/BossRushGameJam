@@ -88,6 +88,7 @@
             <e p="CameraController.cs" t="Include" />
             <e p="CombSystem.cs" t="Include" />
             <e p="DodgeRoll.cs" t="Include" />
+            <e p="KnockBack.cs" t="Include" />
             <e p="LaserBeamAbility.cs" t="Include" />
             <e p="Orienation.cs" t="Include" />
             <e p="Player.cs" t="Include" />

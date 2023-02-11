@@ -87,9 +87,11 @@ public class CombSystem : MonoBehaviour
         }
     }
 
-    public static void StopWillSummer()
+    public static void EnableMoving()
     {
         print("Mr.summer");
         canMove = true;
     }
+    
+    
 }

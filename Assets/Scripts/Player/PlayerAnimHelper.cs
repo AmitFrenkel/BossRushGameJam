@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimHelper : MonoBehaviour
 {
+    [SerializeField] private GameObject trails;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,15 @@ public class PlayerAnimHelper : MonoBehaviour
 
     public void CanMove()
     {
-        CombSystem.StopWillSummer();
+        CombSystem.EnableMoving();
+    }
+
+    public void EnableTrails()
+    {
+        trails.SetActive(true);
+    }
+    public void DisableTrails()
+    {
+        trails.SetActive(false);
     }
 }
