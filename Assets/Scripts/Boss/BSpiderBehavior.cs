@@ -65,13 +65,45 @@ public class BSpiderBehavior : EnemyStats
 
     private void Start()
     {
+        ToDoOnStart();
         agent.autoTraverseOffMeshLink = false;
         StartCoroutine(CooldownBetweenAttacks());
         StartCoroutine(CheckForJumps());
     }
-
+    public void ExitStun()
+    {
+        anim.SetTrigger("ExitStun");
+        StartCoroutine(CooldownBetweenAttacks());
+        StartCoroutine(CheckForJumps());
+        Invoke("ExitStunDelay", 3);
+    }
+    public void ExitStunDelay()
+    {
+        followPlayer = true;
+        agent.isStopped = false;
+        ResetIce();
+    }
+    public void Death()
+    {
+        StopAllCoroutines();
+        agent.isStopped = true;
+        followPlayer = false;
+    }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            AddEffect(StatusEffects.ice);
+        }
+        if (waitsForStun && attacks[0] != 2)
+        {
+            StopAllCoroutines();
+            followPlayer = false;
+            waitsForStun = false;
+            anim.SetTrigger("Iced");
+            Invoke("ExitStun", 10f);
+            agent.isStopped = true;
+        }
         //if (Input.GetKeyDown(KeyCode.K))
         //{
         //    attacks[0] = 1;
@@ -185,7 +217,7 @@ public class BSpiderBehavior : EnemyStats
     }
     public IEnumerator CielingSpikesAttack()
     {
-        while (Vector3.Distance(transform.position,cieling.position) >= 10)
+        while (Vector3.Distance(transform.position,cieling.position) >= 11)
         {
             agent.SetDestination(cieling.position);
             yield return null;
@@ -417,7 +449,6 @@ public class BSpiderBehavior : EnemyStats
         {
             yield return null;
         }
-        print(true);
         switch (Random.Range(0,6))
         {
             case 0:

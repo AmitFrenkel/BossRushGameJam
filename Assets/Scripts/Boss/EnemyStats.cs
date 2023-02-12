@@ -21,47 +21,41 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] protected WarnBehavior warnBehavior;
     [SerializeField] private Slider healthBar;
     [SerializeField] private GameObject healthpackPrefabs;
+    [SerializeField] private GameObject chipPrefab;
     [SerializeField] protected Animator anim;
+    [SerializeField] private Slider fireStatus;
+    [SerializeField] private Slider iceStatus;
+    [SerializeField] protected bool waitsForStun;
+    private bool once = true;
     private int lastHealthNum;
     public UnityEvent deathToDo;
 
-    public StatusEffects currentStatus;
-    private float iceEffectCap = 10;
-    private float iceEffectAmount = 0;
+    [SerializeField] private StatusEffects currentStatus;
+    private int iceEffectCap = 10;
+    private int iceEffectAmount = 0;
     private float fireEffectCap = 100;
     private float fireEffectAmount = 0;
     private float fireAddAmount = 33;
-    private void Start()
+    protected void ToDoOnStart()
     {
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
         lastHealthNum = (int)health / 15;
-        fireEffectAmount = 50;
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            print(fireEffectAmount);
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            iceEffectAmount = 9;
-            AddEffect(StatusEffects.ice);
-        }
 
-        if (fireEffectAmount != 0)
-        {
-            fireEffectAmount -= 1;
-            ChangeHealth(-0.2f);
-        }
+        fireStatus.maxValue = fireEffectCap;
+        iceStatus.maxValue = iceEffectCap;
     }
     public void ChangeHealth(float amount)
     {
         health += amount;
-        if (health <= 0)
+        if (health <= 0 && once)
         {
+            once = false;
             health = 0;
+            Rigidbody rb = Instantiate(chipPrefab, transform.position, Quaternion.identity, null).GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.up * 500);
+            rb.AddForce(Vector3.right * Random.Range(-500, 501));
+            rb.AddForce(Vector3.forward * Random.Range(-500, 501));
             deathToDo.Invoke();
         }
         int t = (int)health / 15;
@@ -78,7 +72,49 @@ public class EnemyStats : MonoBehaviour
             healthBar.value = health;
 
     }
+    public IEnumerator CheckOnFire()
+    {
+        while (fireEffectAmount > 0)
+        {
+            yield return new WaitForSeconds(0.1f);
+            fireEffectAmount -= 1f;
+            ChangeHealth(-0.1f);
+            fireStatus.value = fireEffectAmount;
+        }
+        fireEffectAmount = 0;
+        fireStatus.gameObject.SetActive(false);
+        currentStatus = StatusEffects.nothing;
+    }
 
+    public StatusEffects GetCurrentStatus()
+    {
+        return currentStatus;
+    }
+    public float GetCurrentIceMultiplier()
+    {
+        int ices = iceEffectAmount;
+        iceEffectAmount = 0;
+        currentStatus = StatusEffects.nothing;
+        return (float)(0.3*ices);
+    }
+    public void ReduceFire(float fireReduce)
+    {
+        fireEffectAmount -= fireReduce;
+        if (fireAddAmount <= 0)
+        {
+            fireEffectAmount = 0;
+            currentStatus = StatusEffects.nothing;
+            fireStatus.gameObject.SetActive(false);
+        }
+        fireStatus.value = fireEffectAmount;
+    }
+    protected void ResetIce()
+    {
+        iceEffectAmount = 0;
+        iceStatus.value = iceEffectAmount;
+        iceStatus.gameObject.SetActive(false);
+        currentStatus = StatusEffects.nothing;
+    }
     public void AddEffect(StatusEffects status)
     {
         switch (currentStatus)
@@ -88,6 +124,14 @@ public class EnemyStats : MonoBehaviour
                 if (currentStatus == StatusEffects.ice)
                 {
                     iceEffectAmount++;
+                    iceStatus.value = iceEffectAmount;
+                    iceStatus.gameObject.SetActive(true);
+                }
+                if (currentStatus == StatusEffects.fire)
+                {
+                    fireEffectAmount += fireAddAmount;
+                    fireStatus.gameObject.SetActive(true);
+                    StartCoroutine(CheckOnFire());
                 }
                 break;
             case StatusEffects.elect:
@@ -95,17 +139,22 @@ public class EnemyStats : MonoBehaviour
             case StatusEffects.ice:
                 if (currentStatus == StatusEffects.ice)
                 {
-                    iceEffectAmount += 1;
-                    if (iceEffectAmount == iceEffectCap)
+                    iceEffectAmount++;
+                    iceStatus.value = iceEffectAmount;
+                    if (iceEffectAmount == iceEffectCap && !waitsForStun)
                     {
-                        iceEffectAmount = 0;
-                        anim.SetTrigger("Iced");
+                        //iceEffectAmount = 0;
+                        //iceStatus.value = iceEffectAmount;
+                        //iceStatus.gameObject.SetActive(false);
+                        //currentStatus = StatusEffects.nothing;
+                        waitsForStun = true;
                         //Do stun
                     }
                 }
                 else if (currentStatus == StatusEffects.fire)
                 {
                     iceEffectAmount = 0;
+                    fireStatus.gameObject.SetActive(false);
                     currentStatus = StatusEffects.nothing;
                 }
                 break;
@@ -117,12 +166,9 @@ public class EnemyStats : MonoBehaviour
                 else if (currentStatus == StatusEffects.ice)
                 {
                     fireEffectAmount = 0;
+                    fireStatus.gameObject.SetActive(false);
                     currentStatus = StatusEffects.nothing;
                 }
-                break;
-            case StatusEffects.iced:
-                break;
-            case StatusEffects.onFire:
                 break;
             default:
                 break;
