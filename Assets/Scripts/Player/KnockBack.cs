@@ -19,6 +19,8 @@ public class KnockBack : MonoBehaviour
 
     public void GiveKnockBack(Transform item, float speed)
     {
+        if (!DodgeRoll.canBeDamaged) return;
+
         CombSystem.canMove = false;
         float distance = Mathf.Max(5, 5-Vector3.Distance(transform.position, item.position));
         rigidbody.AddForce(new Vector3(transform.position.x - item.position.x, 0, transform.position.z - item.position.z) * distance*speed);

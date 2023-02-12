@@ -11,13 +11,14 @@ public class IceCubeProjectile : MonoBehaviour
     public GameObject effect;
     public GameObject dangerArea;
     public UnityEvent todoAfterGone;
+    public string checkTag;
     private void Start()
     {
         renderer = GetComponent<MeshRenderer>();
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Floor"))
+        if (other.CompareTag(checkTag))
         {
             todo.Invoke();
         }

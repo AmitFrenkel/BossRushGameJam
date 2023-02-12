@@ -15,6 +15,7 @@ public class CombSystem : MonoBehaviour
     float maxComboDelay = 1;
     [SerializeField] private float forwardSpeed;
     [SerializeField] private Transform forwardDirection;
+    [SerializeField] private ThirdPersonMovement tpm;
     public static bool canMove = true;
  
     private void Start()
@@ -72,13 +73,14 @@ public class CombSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                // reduce enemy health
-                print("hit!");
-                other.GetComponent<EnemyStats>().ChangeHealth(-1);
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            // reduce enemy health
+            print("hit!");
+            int damage = 2;
+            other.GetComponent<EnemyStats>().ChangeHealth(-damage);
+            tpm.AddLaserCharge(damage * 5);
             }
-        
     }
     public void ToggleCollider(bool toggle)
     {
