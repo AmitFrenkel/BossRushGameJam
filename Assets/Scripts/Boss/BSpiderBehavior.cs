@@ -21,7 +21,6 @@ public class BSpiderBehavior : EnemyStats
     [SerializeField] private Transform player;
     [SerializeField] private Transform playerLegs;
     [SerializeField] private Transform walkTarget;
-    [SerializeField] private Animator anim;
     [SerializeField] private AgentLinkMover agentLinkMover;
     [SerializeField] private SpiderLegsAnimation spiderLegsAnim;
     [SerializeField] private SpiderState state;
@@ -193,7 +192,7 @@ public class BSpiderBehavior : EnemyStats
         }
         anim.Play("CielingAttach");
         followPlayer = false;
-        triggerFallCheck.enabled = false;
+        //triggerFallCheck.enabled = false;
         iceSpikesLeft = 10;
         while (iceSpikesLeft != 0)
         {
@@ -207,7 +206,7 @@ public class BSpiderBehavior : EnemyStats
         {
             yield return null;
         }
-        triggerFallCheck.enabled = true;
+        //triggerFallCheck.enabled = true;
         agent.enabled = true;
         rigidbody.isKinematic = true;
         anim.SetTrigger("StopAttack");

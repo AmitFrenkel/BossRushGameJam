@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5663839039509940666}
   - component: {fileID: 5663839039509940665}
   - component: {fileID: 5663839039509940664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4883,7 +4883,7 @@ GameObject:
   - component: {fileID: 5663839039674930257}
   - component: {fileID: 5663839039674930256}
   - component: {fileID: 3396186376667670625}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4994,7 +4994,7 @@ GameObject:
   - component: {fileID: 4449970044530668084}
   - component: {fileID: 4175064097778164830}
   - component: {fileID: 3216309671356982757}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: IceSpike
   m_TagString: Ice
   m_Icon: {fileID: 0}
@@ -5059,7 +5059,8 @@ GameObject:
   - component: {fileID: 7893648864558832062}
   - component: {fileID: 5663839040585556832}
   - component: {fileID: 5663839040585556833}
-  m_Layer: 6
+  - component: {fileID: 7355080475387304008}
+  m_Layer: 9
   m_Name: iceCubeProjectile
   m_TagString: Ice
   m_Icon: {fileID: 0}
@@ -5203,3 +5204,16 @@ MonoBehaviour:
   todoAfterGone:
     m_PersistentCalls:
       m_Calls: []
+--- !u!65 &7355080475387304008
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541960296378300523}
+  m_Material: {fileID: 13400000, guid: 3027525aa045ced4e98e5324643d5d24, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 0.5, z: 0.8}
+  m_Center: {x: 0, y: 0, z: 0}

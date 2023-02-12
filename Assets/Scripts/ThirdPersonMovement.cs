@@ -65,7 +65,6 @@ public class ThirdPersonMovement : MonoBehaviour
             horizontal = 0;
             vertical = 0;
         }
-        print(CombSystem.canMove);
 
         Vector3 forward = Camera.main.transform.forward;
         forward.y = 0;
@@ -145,12 +144,16 @@ public class ThirdPersonMovement : MonoBehaviour
             }
         }
     }
+    public void AddLaserCharge(float charge)
+    {
+        energyBar.value += charge;
+    }
     public IEnumerator LaserCharge()
     {
         yield return new WaitForSeconds(1);
-        while (!Input.GetKey(KeyCode.Mouse1))
+        while (!Input.GetKeyDown(KeyCode.Mouse1))
         {
-            energyBar.value += 6f*Time.deltaTime;
+            energyBar.value += 2f*Time.deltaTime;
             yield return null;
         }
     }

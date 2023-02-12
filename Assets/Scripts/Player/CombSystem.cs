@@ -16,6 +16,7 @@ public class CombSystem : MonoBehaviour
     float maxComboDelay = 1;
     [SerializeField] private float forwardSpeed;
     [SerializeField] private Transform forwardDirection;
+    [SerializeField] private ThirdPersonMovement tpm;
     public static bool canMove = true;
     private void Start()
     {
@@ -88,8 +89,8 @@ public class CombSystem : MonoBehaviour
                 }
                 // reduce enemy health
                 print("hit!");
+            tpm.AddLaserCharge(damage * 5);
             }
-        
     }
     public void ToggleCollider(bool toggle)
     {
