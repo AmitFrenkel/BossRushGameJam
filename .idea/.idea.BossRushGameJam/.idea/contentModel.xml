@@ -99,6 +99,7 @@
             <e p="Player.cs" t="Include" />
             <e p="PlayerAnimHelper.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
+            <e p="ProjectileDamage.cs" t="Include" />
           </e>
           <e p="PlayerLookDirection.cs" t="Include" />
           <e p="ResetRot.cs" t="Include" />

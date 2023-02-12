@@ -30,6 +30,12 @@ public abstract class AbstractAbility : MonoBehaviour
         set => abilityName = value;
     }
 
+    public int Power
+    {
+        get => power;
+        set => power = value;
+    }
+
     public virtual void ActivateAbility()
     {
         if (currentTimer == cooldownTimer)

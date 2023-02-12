@@ -8,7 +8,6 @@ public class CombSystem : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Rigidbody playerMovement;
     [SerializeField] private BoxCollider attackCollider;
-    [SerializeField] private ThirdPersonMovement player;
     public float cooldownTime = 2f;
     private float nextFireTime = 0f;
     public static int noOfClicks = 0;
@@ -36,6 +35,10 @@ public class CombSystem : MonoBehaviour
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
         {
             anim.SetBool("hit3", false);
+        }
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack4"))
+        {
+            anim.SetBool("hit4", false);
             anim.SetBool("hit1", false);
             noOfClicks = 0;
         }
@@ -69,27 +72,25 @@ public class CombSystem : MonoBehaviour
             anim.SetBool("hit2", false);
             anim.SetBool("hit3", true);
         }
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        {
+            anim.SetBool("hit1", false);
+            anim.SetBool("hit2", false);
+            anim.SetBool("hit3", false);
+            anim.SetBool("hit4", true);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
             if (other.gameObject.CompareTag("Enemy"))
             {
-                switch (player.CurrentAbility.AbilityName)
-                {
-                    case StatusEffects.nothing:
-                        other.GetComponent<EnemyStats>().ChangeHealth(-player.Player.Power);
-                        break;
-                    case StatusEffects.elect:
-                        break;
-                    case StatusEffects.ice:
-                        break;
-                    case StatusEffects.fire:
-                        break;
-                }
+                other.GetComponent<EnemyStats>().ChangeHealth(-tpm.Player.Power);
+
+                
                 // reduce enemy health
                 print("hit!");
-            tpm.AddLaserCharge(damage * 5);
+            tpm.AddLaserCharge(tpm.Player.Power*0.6f);
             }
     }
     public void ToggleCollider(bool toggle)

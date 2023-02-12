@@ -25,9 +25,9 @@ public class EnemyStats : MonoBehaviour
     private int lastHealthNum;
     public UnityEvent deathToDo;
 
-    public StatusEffects currentStatus;
-    private float iceEffectCap = 10;
-    private float iceEffectAmount = 0;
+    private StatusEffects currentStatus;
+    private int iceEffectCap = 10;
+    private int iceEffectAmount = 0;
     private float fireEffectCap = 100;
     private float fireEffectAmount = 0;
     private float fireAddAmount = 33;
@@ -79,6 +79,26 @@ public class EnemyStats : MonoBehaviour
 
     }
 
+    public StatusEffects GetCurrentStatus()
+    {
+        return currentStatus;
+    }
+    public float GetCurrentIceMultiplier()
+    {
+        int ices = iceEffectAmount;
+        iceEffectAmount = 0;
+        currentStatus = StatusEffects.nothing;
+        return (float)(0.3*ices);
+    }
+    public void ReduceFire(float fireReduce)
+    {
+        fireEffectAmount -= fireReduce;
+        if (fireAddAmount <= 0)
+        {
+            fireEffectAmount = 0;
+            currentStatus = StatusEffects.nothing;
+        }
+    }
     public void AddEffect(StatusEffects status)
     {
         switch (currentStatus)
@@ -88,6 +108,10 @@ public class EnemyStats : MonoBehaviour
                 if (currentStatus == StatusEffects.ice)
                 {
                     iceEffectAmount++;
+                }
+                if (currentStatus == StatusEffects.fire)
+                {
+                    fireEffectAmount += fireAddAmount;
                 }
                 break;
             case StatusEffects.elect:
@@ -119,10 +143,6 @@ public class EnemyStats : MonoBehaviour
                     fireEffectAmount = 0;
                     currentStatus = StatusEffects.nothing;
                 }
-                break;
-            case StatusEffects.iced:
-                break;
-            case StatusEffects.onFire:
                 break;
             default:
                 break;
