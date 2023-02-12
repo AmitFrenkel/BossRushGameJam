@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] private string shortRangeAbility, longRangeAbility;
     private AbstractAbility[] specialAbility;
     [SerializeField] private UnityEvent deathTodo;
+    [SerializeField] private int power;
 
     private void Start()
     {
@@ -45,6 +46,18 @@ public class Player : MonoBehaviour
                 deathTodo.Invoke();
             }
         }
+    }
+
+    public AbstractAbility[] SpecialAbility
+    {
+        get => specialAbility;
+        set => specialAbility = value;
+    }
+
+    public int Power
+    {
+        get => power;
+        set => power = value;
     }
 
     public int GetCurrentHealth()

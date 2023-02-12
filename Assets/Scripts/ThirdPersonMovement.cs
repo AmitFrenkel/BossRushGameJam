@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ThirdPersonMovement : MonoBehaviour
 {
     [SerializeField] private AbstractAbility[] abilities;
+    [SerializeField] private Player player;
     [SerializeField] private GameObject beam;
     [SerializeField] private Material beamMaterial;
     public float speed = 10f;
@@ -23,10 +24,26 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] private Transform laserPos;
     [SerializeField] private Slider energyBar;
 
-    private int currentAbility;
+    private AbstractAbility currentAbility;
+    private int currentAbilityIndex;
+
+
+    public AbstractAbility CurrentAbility
+    {
+        get => currentAbility;
+        set => currentAbility = value;
+    }
+
+    public Player Player
+    {
+        get => player;
+        set => player = value;
+    }
+
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        abilities = player.SpecialAbility;
     }
 
     private void Update()
@@ -76,20 +93,22 @@ public class ThirdPersonMovement : MonoBehaviour
         // Change ability
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            currentAbility++;
-            if (currentAbility == abilities.Length)
+            currentAbilityIndex++;
+            if (currentAbilityIndex == abilities.Length)
             {
-                currentAbility = 0;
+                currentAbilityIndex = 0;
             }
 
-            while (!abilities[currentAbility].CanUse)
+            while (!abilities[currentAbilityIndex].CanUse)
             {
-                currentAbility++;
-                if (currentAbility == abilities.Length)
+                currentAbilityIndex++;
+                if (currentAbilityIndex == abilities.Length)
                 {
-                    currentAbility = 0;
+                    currentAbilityIndex = 0;
                 }
             }
+            currentAbility = abilities[currentAbilityIndex];
+
         }
         
         // short Range ability in comboSystem script

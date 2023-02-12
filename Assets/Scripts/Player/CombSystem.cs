@@ -8,6 +8,7 @@ public class CombSystem : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Rigidbody playerMovement;
     [SerializeField] private BoxCollider attackCollider;
+    [SerializeField] private ThirdPersonMovement player;
     public float cooldownTime = 2f;
     private float nextFireTime = 0f;
     public static int noOfClicks = 0;
@@ -16,7 +17,6 @@ public class CombSystem : MonoBehaviour
     [SerializeField] private float forwardSpeed;
     [SerializeField] private Transform forwardDirection;
     public static bool canMove = true;
- 
     private void Start()
     {
         canMove = true;
@@ -74,9 +74,20 @@ public class CombSystem : MonoBehaviour
     {
             if (other.gameObject.CompareTag("Enemy"))
             {
+                switch (player.CurrentAbility.AbilityName)
+                {
+                    case StatusEffects.nothing:
+                        other.GetComponent<EnemyStats>().ChangeHealth(-player.Player.Power);
+                        break;
+                    case StatusEffects.elect:
+                        break;
+                    case StatusEffects.ice:
+                        break;
+                    case StatusEffects.fire:
+                        break;
+                }
                 // reduce enemy health
                 print("hit!");
-                other.GetComponent<EnemyStats>().ChangeHealth(-1);
             }
         
     }

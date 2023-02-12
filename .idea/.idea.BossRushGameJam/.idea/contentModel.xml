@@ -79,14 +79,19 @@
             <e p="AnimHelper.cs" t="Include" />
             <e p="BSpiderBehavior.cs" t="Include" />
             <e p="EnemyStats.cs" t="Include" />
+            <e p="HealthBar.cs" t="Include" />
             <e p="IceCubeProjectile.cs" t="Include" />
             <e p="SpiderLegsAnimation.cs" t="Include" />
           </e>
+          <e p="ExtraGravity.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
+          <e p="HealthPack.cs" t="Include" />
           <e p="Player" t="Include">
             <e p="AbstractAbility.cs" t="Include" />
             <e p="BeamAim.cs" t="Include" />
             <e p="CameraController.cs" t="Include" />
             <e p="CombSystem.cs" t="Include" />
+            <e p="DamageDetection.cs" t="Include" />
             <e p="DodgeRoll.cs" t="Include" />
             <e p="KnockBack.cs" t="Include" />
             <e p="LaserBeamAbility.cs" t="Include" />
@@ -95,7 +100,13 @@
             <e p="PlayerAnimHelper.cs" t="Include" />
             <e p="PlayerMovement.cs" t="Include" />
           </e>
+          <e p="PlayerLookDirection.cs" t="Include" />
+          <e p="ResetRot.cs" t="Include" />
           <e p="ThirdPersonMovement.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="ChangeIcon.cs" t="Include" />
+            <e p="Menu.cs" t="Include" />
+          </e>
           <e p="Warn.cs" t="Include" />
           <e p="WarnBehavior.cs" t="Include" />
         </e>

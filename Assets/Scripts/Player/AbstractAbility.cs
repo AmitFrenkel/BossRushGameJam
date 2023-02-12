@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class AbstractAbility : MonoBehaviour
 {
     [SerializeField] protected Animator animator;
-    protected string abilityName;
+    protected StatusEffects abilityName;
     protected float cooldownTimer = 1;
     protected Sprite icon;
     protected bool canUse;
@@ -24,12 +24,18 @@ public abstract class AbstractAbility : MonoBehaviour
         currentTimer = cooldownTimer;
     }
 
+    public StatusEffects AbilityName
+    {
+        get => abilityName;
+        set => abilityName = value;
+    }
+
     public virtual void ActivateAbility()
     {
         if (currentTimer == cooldownTimer)
         {
             StartCoroutine(StartCooldown());
-            animator.Play(abilityName);
+            // animator.Play(abilityName);
         }
     }
 
