@@ -23,6 +23,10 @@ public class PlayerAnimHelper : MonoBehaviour
     {
         CombSystem.EnableMoving();
     }
+    public void CantMove()
+    {
+        CombSystem.DisableMoving();
+    }
     public void ForceTowardsEnemy()
     {
         comb.ForceForward();
@@ -37,43 +41,59 @@ public class PlayerAnimHelper : MonoBehaviour
         trails.SetActive(false);
     }
 
-    public void ActivateAbility()
+    public void ActivateIce()
     {
         var rb = Instantiate(ice,icePosition).GetComponent<Rigidbody>();
         var startPos = rb.transform.localPosition.z;
-        while (startPos < startPos+2*Vector3.forward.z)
+        for (int i = 0; i < tpm.CurrentAbility.GetComponent<IceAttack>().NumberOfIce; i++)
         {
-            rb.AddForce(Vector3.forward,ForceMode.Impulse);
+            while (startPos < startPos+2*Vector3.forward.z)
+            {
+                rb.AddForce(Vector3.forward,ForceMode.Impulse);
+            }
+            rb.useGravity = true;
         }
-
-        rb.useGravity = true;
-        // switch (tpm.CurrentAbility.AbilityName)
-        // {
-        //     case StatusEffects.nothing:
-        //         break;
-        //     case StatusEffects.elect:
-        //         Instantiate(electric,electricalPosition);
-        //         break;
-        //     case StatusEffects.ice:
-        //         var rb = Instantiate(ice,icePosition).GetComponent<Rigidbody>();
-        //         var startPos = rb.transform.localPosition.z;
-        //         while (startPos < startPos+2*Vector3.forward.z)
-        //         {
-        //             rb.AddForce(Vector3.forward,ForceMode.Impulse);
-        //         }
-        //
-        //         rb.useGravity = true;
-        //         break;
-        //     case StatusEffects.fire:
-        //         var rbT = Instantiate(toast,toastPosition).GetComponent<Rigidbody>();
-        //         var startPosT = rbT.transform.localPosition.z;
-        //         while (startPosT < startPosT+2*Vector3.forward.z)
-        //         {
-        //             rbT.AddForce(Vector3.forward,ForceMode.Impulse);
-        //         }
-        //         rbT.useGravity = true;
-        //         break;
-        //
-        // }
+       
     }
+
+    // public void ActivateAbility()
+    // {
+    //     var rb = Instantiate(ice,icePosition).GetComponent<Rigidbody>();
+    //     var startPos = rb.transform.localPosition.z;
+    //     while (startPos < startPos+2*Vector3.forward.z)
+    //     {
+    //         rb.AddForce(Vector3.forward,ForceMode.Impulse);
+    //     }
+    //
+    //     rb.useGravity = true;
+    //     // switch (tpm.CurrentAbility.AbilityName)
+    //     // {
+    //     //     case StatusEffects.nothing:
+    //     //         break;
+    //     //     case StatusEffects.elect:
+    //     //         Instantiate(electric,electricalPosition);
+    //     //         break;
+    //     //     case StatusEffects.ice:
+    //     //         var rb = Instantiate(ice,icePosition).GetComponent<Rigidbody>();
+    //     //         var startPos = rb.transform.localPosition.z;
+    //     //         while (startPos < startPos+2*Vector3.forward.z)
+    //     //         {
+    //     //             rb.AddForce(Vector3.forward,ForceMode.Impulse);
+    //     //         }
+    //     //
+    //     //         rb.useGravity = true;
+    //     //         break;
+    //     //     case StatusEffects.fire:
+    //     //         var rbT = Instantiate(toast,toastPosition).GetComponent<Rigidbody>();
+    //     //         var startPosT = rbT.transform.localPosition.z;
+    //     //         while (startPosT < startPosT+2*Vector3.forward.z)
+    //     //         {
+    //     //             rbT.AddForce(Vector3.forward,ForceMode.Impulse);
+    //     //         }
+    //     //         rbT.useGravity = true;
+    //     //         break;
+    //     //
+    //     // }
+    // }
+    
 }

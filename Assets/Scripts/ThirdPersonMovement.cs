@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-    [SerializeField] private AbstractAbility[] abilities;
+    private AbstractAbility[] abilities;
     [SerializeField] private Player player;
     [SerializeField] private GameObject beam;
     [SerializeField] private Material beamMaterial;
@@ -44,6 +44,7 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         abilities = player.SpecialAbility;
+        currentAbility = abilities[0];
     }
 
     private void Update()
@@ -104,6 +105,7 @@ public class ThirdPersonMovement : MonoBehaviour
                 if (currentAbilityIndex == abilities.Length)
                 {
                     currentAbilityIndex = 0;
+                    break;
                 }
             }
             currentAbility = abilities[currentAbilityIndex];

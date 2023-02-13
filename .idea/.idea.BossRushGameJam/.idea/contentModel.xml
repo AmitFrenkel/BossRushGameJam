@@ -78,6 +78,7 @@
           <e p="Boss" t="Include">
             <e p="AnimHelper.cs" t="Include" />
             <e p="BSpiderBehavior.cs" t="Include" />
+            <e p="ChickenXBehavior.cs" t="Include" />
             <e p="EnemyStats.cs" t="Include" />
             <e p="HealthBar.cs" t="Include" />
             <e p="IceCubeProjectile.cs" t="Include" />
@@ -93,6 +94,8 @@
             <e p="CombSystem.cs" t="Include" />
             <e p="DamageDetection.cs" t="Include" />
             <e p="DodgeRoll.cs" t="Include" />
+            <e p="ElectAttack.cs" t="Include" />
+            <e p="IceAttack.cs" t="Include" />
             <e p="KnockBack.cs" t="Include" />
             <e p="LaserBeamAbility.cs" t="Include" />
             <e p="Orienation.cs" t="Include" />

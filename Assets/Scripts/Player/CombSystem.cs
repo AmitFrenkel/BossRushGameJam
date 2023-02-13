@@ -18,11 +18,15 @@ public class CombSystem : MonoBehaviour
     [SerializeField] private ThirdPersonMovement tpm;
     [SerializeField] private GameObject electroPrefab;
     public static bool canMove = true;
-    private void Start()
+    private float temps,longPressDuration = 1.0f,mouseDownTime;
+    private bool click,isMouseDown,longPressActivated;
+
+    private void Start()    
     {
         canMove = true;
         // anim = GetComponent<Animator>();
     }
+
     void Update()
     {
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
@@ -36,26 +40,140 @@ public class CombSystem : MonoBehaviour
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
         {
             anim.SetBool("hit3", false);
-        }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack4"))
-        {
-            anim.SetBool("hit4", false);
             anim.SetBool("hit1", false);
-            noOfClicks = 0;
+
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Store the time when the mouse button was first pressed
+            mouseDownTime = Time.time;
+            isMouseDown = true;
         }
 
-        //cooldown time
-        if (Time.time > nextFireTime)
+        if (Input.GetMouseButton(0))
         {
-            // Check for mouse input
-            if (Input.GetMouseButtonDown(0))
+            if (isMouseDown)
             {
-                OnClick();
- 
+                // Check if the mouse button has been held down for the specified duration
+                if (Time.time - mouseDownTime >= longPressDuration)
+                {
+                    if (!longPressActivated)
+                    {
+                        // Long press detected
+                        Debug.Log("Long Press");
+                        anim.SetTrigger("ElectAttack");
+                        switch (tpm.CurrentAbility.AbilityName)
+                            {
+                                
+                                case StatusEffects.elect:
+                                    anim.SetTrigger("ElectAttack");
+                                    break;
+                                case StatusEffects.ice:
+                                    anim.SetTrigger("IceAttack");
+                                    break;
+                                case StatusEffects.fire:
+                                    anim.SetTrigger("FireAttack");
+                                    break;
+                            }
+                        longPressActivated = true;
+                    }
+                }
             }
         }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (isMouseDown)
+            {
+                // Check if the mouse button was only held down for a short period of time
+                if (Time.time - mouseDownTime < longPressDuration)
+                {
+                    // Short press detected
+                    OnClick();
+                    Debug.Log("Short Press");
+                }
+                isMouseDown = false;
+                longPressActivated = false;
+            }
+        }
+        // if (Input.GetMouseButtonDown (0))
+        // {
+        //     temps = Time.time ;
+        //     click = true ;
+        // }
+        //
+        // if (click && (Time.time - temps) > 0.2 )
+        // {
+        //     // long click effect
+        //     // anim.SetTrigger("ElectAttack");
+        //
+        //     switch (tpm.CurrentAbility.AbilityName)
+        //     {
+        //         
+        //         case StatusEffects.elect:
+        //             anim.SetTrigger("ElectAttack");
+        //             break;
+        //         case StatusEffects.ice:
+        //             anim.SetTrigger("IceAttack");
+        //             break;
+        //         case StatusEffects.fire:
+        //             anim.SetTrigger("FireAttack");
+        //             break;
+        //     }
+        // }
+        //
+        // if (Input.GetMouseButtonUp(0))
+        // {
+        //     click = false ;
+        //
+        //     if ( (Time.time - temps) < 0.2 )
+        //     {
+        //         // short click effect
+        //         OnClick();
+        //     }
+        // }
+        //cooldown time
+        // if (Time.time > nextFireTime)
+        // {
+        //     if (Input.GetMouseButtonDown (0))
+        //     {
+        //         temps = Time.time ;
+        //         click = true ;
+        //     }
+        //
+        //     if (click && (Time.time - temps) > 0.2 )
+        //     {
+        //         // long click effect
+        //         // anim.SetTrigger("ElectAttack");
+        //
+        //         switch (tpm.CurrentAbility.AbilityName)
+        //         {
+        //         
+        //             case StatusEffects.elect:
+        //                 anim.SetTrigger("ElectAttack");
+        //                 break;
+        //             case StatusEffects.ice:
+        //                 anim.SetTrigger("IceAttack");
+        //                 break;
+        //             case StatusEffects.fire:
+        //                 anim.SetTrigger("FireAttack");
+        //                 break;
+        //         }
+        //     }
+        //
+        //     if (Input.GetMouseButtonUp(0))
+        //     {
+        //         click = false ;
+        //
+        //         if ( (Time.time - temps) < 0.2 )
+        //         {
+        //             // short click effect
+        //             OnClick();
+        //         }
+        //     }
+        // }
     }
- 
+
     void OnClick()
     {
         canMove = false;
@@ -73,14 +191,9 @@ public class CombSystem : MonoBehaviour
             anim.SetBool("hit2", false);
             anim.SetBool("hit3", true);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
-        {
-            anim.SetBool("hit1", false);
-            anim.SetBool("hit2", false);
-            anim.SetBool("hit3", false);
-            anim.SetBool("hit4", true);
-        }
     }
+    
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -101,6 +214,10 @@ public class CombSystem : MonoBehaviour
     public static void EnableMoving()
     {
         canMove = true;
+    }
+    public static void DisableMoving()
+    {
+        canMove = false;
     }
     public void ForceForward()
     {

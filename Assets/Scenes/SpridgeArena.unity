@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -27867,7 +27867,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e70b5293f1edca44b7767eae985b90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilities: []
   player: {fileID: 1450678690}
   beam: {fileID: 1952644673}
   beamMaterial: {fileID: 2100000, guid: 343870f4351774a469e389fc8e46c132, type: 2}
@@ -27897,6 +27896,9 @@ MonoBehaviour:
   healthBar: {fileID: 894149517}
   shortRangeAbility: 
   longRangeAbility: 
+  specialAbility:
+  - {fileID: 1826722699}
+  - {fileID: 1756905720}
   deathTodo:
     m_PersistentCalls:
       m_Calls:
@@ -27912,7 +27914,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  power: 1
+  power: 3
 --- !u!114 &1450678691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27928,6 +27930,7 @@ MonoBehaviour:
   dodgeSpeed: 75
   dodgeDuration: 0.5
   iframeDuration: 0.5
+  animator: {fileID: 654308587}
   dodgeHelper: {fileID: 249012434}
   reg: {fileID: 2100000, guid: 304e1b44c673e0d449036a6ccc11376d, type: 2}
   blue: {fileID: 2100000, guid: 6d03193938da0f247b4945c9bf6fe281, type: 2}
@@ -30046,6 +30049,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 520151581}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1756905719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1756905721}
+  - component: {fileID: 1756905720}
+  m_Layer: 0
+  m_Name: Ice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1756905720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756905719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e9ad23980b32345a0dae124c198256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: 2
+  icon: {fileID: 0}
+  canUse: 1
+  power: 1.5
+  numberOfIce: 3
+--- !u!4 &1756905721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756905719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.7427225, y: 1.0587652, z: -3.3879611}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776705425
 GameObject:
@@ -35958,6 +36010,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1160915459}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1826722698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826722700}
+  - component: {fileID: 1826722699}
+  m_Layer: 0
+  m_Name: Elect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1826722699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826722698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7c4b03696049c40a22a29fb35c7728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: 1
+  icon: {fileID: 0}
+  canUse: 1
+  power: 5
+--- !u!4 &1826722700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826722698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.7427225, y: 1.0587652, z: -3.3879611}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1831202675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5585387473193590102, guid: c08cbc5f47b6eab40bfb83d4f5577a8a,

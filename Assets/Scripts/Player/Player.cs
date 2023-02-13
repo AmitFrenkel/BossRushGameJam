@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHealth,currentHealth;
     [SerializeField] private Slider healthBar;
     [SerializeField] private string shortRangeAbility, longRangeAbility;
-    private AbstractAbility[] specialAbility;
+    [SerializeField] private AbstractAbility[] specialAbility;
     [SerializeField] private UnityEvent deathTodo;
     [SerializeField] private int power;
 

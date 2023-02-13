@@ -13,6 +13,7 @@ public class DodgeRoll : MonoBehaviour
     private float iframeElapsedTime = 0f;
     public static bool canBeDamaged = true;
     private bool isRolling;
+    [SerializeField] private Animator animator;
     [SerializeField] private Transform dodgeHelper;
     [SerializeField] private Material reg;
     [SerializeField] private Material blue;
@@ -27,6 +28,7 @@ public class DodgeRoll : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isRolling)
         {
+            animator.SetTrigger("Dodge");
             StartCoroutine(StartRoll());
 
             rigidbody.AddForce(dodgeHelper.forward * dodgeSpeed, ForceMode.Impulse);

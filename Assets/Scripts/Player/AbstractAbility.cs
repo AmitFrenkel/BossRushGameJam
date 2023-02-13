@@ -5,24 +5,18 @@ using UnityEngine;
 
 public abstract class AbstractAbility : MonoBehaviour
 {
-    [SerializeField] protected Animator animator;
-    protected StatusEffects abilityName;
-    protected float cooldownTimer = 1;
-    protected Sprite icon;
-    protected bool canUse;
-    protected int power;
-    private float currentTimer;
+    // [SerializeField] protected Animator animator;
+    [SerializeField] protected StatusEffects abilityName;
+    [SerializeField] protected Sprite icon;
+    [SerializeField] protected bool canUse;
+    [SerializeField] protected float power;
 
     public bool CanUse
     {
         get => canUse;
         set => canUse = value;
     }
-
-    private void Start()
-    {
-        currentTimer = cooldownTimer;
-    }
+    
 
     public StatusEffects AbilityName
     {
@@ -30,32 +24,21 @@ public abstract class AbstractAbility : MonoBehaviour
         set => abilityName = value;
     }
 
-    public int Power
+    public float Power
     {
         get => power;
         set => power = value;
     }
 
-    public virtual void ActivateAbility()
-    {
-        if (currentTimer == cooldownTimer)
-        {
-            StartCoroutine(StartCooldown());
-            // animator.Play(abilityName);
-        }
-    }
-
-    private IEnumerator StartCooldown()
-    {
-        canUse = false;
-        while (currentTimer < 0)
-        {
-            yield return new WaitForSeconds(1f);
-        }
-
-        canUse = true;
-        currentTimer = cooldownTimer;
-    }
+    // public virtual void ActivateAbility()
+    // {
+    //     // if (currentTimer == cooldownTimer)
+    //     // {
+    //     //     StartCoroutine(StartCooldown());
+    //     //     // animator.Play(abilityName);
+    //     // }
+    // }
+    
     
     
 }
