@@ -16,6 +16,7 @@ public class CombSystem : MonoBehaviour
     [SerializeField] private float forwardSpeed;
     [SerializeField] private Transform forwardDirection;
     [SerializeField] private ThirdPersonMovement tpm;
+    [SerializeField] private GameObject electroPrefab;
     public static bool canMove = true;
     private void Start()
     {
@@ -83,15 +84,15 @@ public class CombSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                other.GetComponent<EnemyStats>().ChangeHealth(-tpm.Player.Power);
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyStats>().ChangeHealth(-tpm.Player.Power);
+            Instantiate(electroPrefab, transform.position, Quaternion.identity, null);
 
-                
-                // reduce enemy health
-                print("hit!");
-            tpm.AddLaserCharge(tpm.Player.Power*0.6f);
-            }
+            // reduce enemy health
+            print("hit!");
+            tpm.AddLaserCharge(tpm.Player.Power * 2f);
+        }
     }
     public void ToggleCollider(bool toggle)
     {
