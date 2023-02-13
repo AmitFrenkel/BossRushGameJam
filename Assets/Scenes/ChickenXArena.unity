@@ -22179,8 +22179,8 @@ MonoBehaviour:
       m_Calls: []
   currentStatus: 0
   agent: {fileID: 1959649494}
-  player: {fileID: 0}
-  playerLegs: {fileID: 0}
+  player: {fileID: 1450678686}
+  playerLegs: {fileID: 815346312}
   floor: {fileID: 0}
   towers: []
   state: 0

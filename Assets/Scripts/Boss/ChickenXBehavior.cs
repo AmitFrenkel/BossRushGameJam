@@ -91,7 +91,6 @@ public class ChickenXBehavior : EnemyStats
             state = ChickenState.walking;
             anim.SetInteger("State", 1);
         }
-
     }
     public IEnumerator CloseAttack()
     {
