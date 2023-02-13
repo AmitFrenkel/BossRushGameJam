@@ -9,9 +9,7 @@ public enum StatusEffects
     nothing,
     elect,
     ice,
-    fire,
-    iced,
-    onFire
+    fire
 }
 public class EnemyStats : MonoBehaviour
 {
@@ -58,7 +56,7 @@ public class EnemyStats : MonoBehaviour
             rb.AddForce(Vector3.forward * Random.Range(-500, 501));
             deathToDo.Invoke();
         }
-        int t = (int)health / 15;
+        int t = (int)health / 20;
         if (t != lastHealthNum)
         {
             lastHealthNum = t;

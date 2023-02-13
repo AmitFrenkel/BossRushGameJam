@@ -61,7 +61,7 @@ public class BSpiderBehavior : EnemyStats
     [Range(0, 10)]
     [SerializeField] private float stunTime;
     [SerializeField] private Rigidbody rigidbody;
-    [SerializeField] private bool onceCielingAttack;
+    [SerializeField] private bool onceCielingAttack;// CHECK IF WORKS????????? LIKE WHAT HTE HECK
 
     private void Start()
     {
@@ -91,10 +91,6 @@ public class BSpiderBehavior : EnemyStats
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            AddEffect(StatusEffects.ice);
-        }
         if (waitsForStun && attacks[0] != 2)
         {
             StopAllCoroutines();
@@ -224,7 +220,7 @@ public class BSpiderBehavior : EnemyStats
         }
         anim.Play("CielingAttach");
         followPlayer = false;
-        //triggerFallCheck.enabled = false;
+        triggerFallCheck.enabled = false;
         iceSpikesLeft = 10;
         while (iceSpikesLeft != 0)
         {
@@ -238,9 +234,9 @@ public class BSpiderBehavior : EnemyStats
         {
             yield return null;
         }
-        //triggerFallCheck.enabled = true;
         agent.enabled = true;
         rigidbody.isKinematic = true;
+        triggerFallCheck.enabled = true;
         anim.SetTrigger("StopAttack");
         yield return new WaitForSeconds(stunTime);
         anim.SetTrigger("ExitStun");
