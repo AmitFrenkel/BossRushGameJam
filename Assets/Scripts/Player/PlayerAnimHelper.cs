@@ -54,7 +54,7 @@ public class PlayerAnimHelper : MonoBehaviour
             // StartCoroutine(DestroyRB(rb.gameObject));
         }
         anim.SetTrigger("ExitIceAttack");
-        CanMove();
+        Invoke("CanMove",0.5f);
        
     }
     public void ActivateToast()
@@ -69,7 +69,7 @@ public class PlayerAnimHelper : MonoBehaviour
         var rb = Instantiate(toast,toastPosition.position,quaternion.identity,null).GetComponent<Rigidbody>();
         rb.AddForce((transform.forward+Vector3.up*0.4f)*toastPower);
         // anim.SetTrigger("ExitIceAttack");
-        CanMove();
+        // CanMove();
        
     }
 
