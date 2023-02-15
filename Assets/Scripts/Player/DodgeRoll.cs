@@ -41,7 +41,7 @@ public class DodgeRoll : MonoBehaviour
         renderer.material = reg;
         canBeDamaged = true;
         isRolling = true;
-        while (rigidbody.velocity.magnitude > 0.5f)
+        while (rigidbody.velocity.magnitude > 0.2f)
         {
             yield return null;
         }

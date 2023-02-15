@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4936077684413406734}
   - component: {fileID: 4936077684413406729}
   - component: {fileID: 4936077684413406728}
+  - component: {fileID: 8397632894003936622}
   m_Layer: 0
   m_Name: ElectricVFX
   m_TagString: Untagged
@@ -125,3 +126,16 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8397632894003936622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936077684413406731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9771de863dc4d1a49817ac68633a4418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destructionTimer: 1

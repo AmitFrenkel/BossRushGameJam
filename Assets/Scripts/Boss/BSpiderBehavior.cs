@@ -55,7 +55,7 @@ public class BSpiderBehavior : EnemyStats
     private int iceSpikesLeft;
     [SerializeField] private int spikePoolIndex;
     [SerializeField] private Transform[] iceSpikes;
-    [SerializeField] private BoxCollider triggerFallCheck;
+    [SerializeField] private SphereCollider triggerFallCheck;
 
     [Header("Misc")]
     [Range(0, 10)]
@@ -91,6 +91,11 @@ public class BSpiderBehavior : EnemyStats
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            AddEffect(StatusEffects.ice);
+        }
+
         if (waitsForStun && attacks[0] != 2)
         {
             StopAllCoroutines();
