@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
     public void ChangeHealth(int value)
     {
-        if (DodgeRoll.canBeDamaged)
+        if (DodgeRoll.canBeDamaged && value < 0)
         {
             currentHealth += value;
             healthBar.value = currentHealth;
@@ -46,8 +46,12 @@ public class Player : MonoBehaviour
                 deathTodo.Invoke();
             }
         }
+        else if (value > 0)
+        {
+            currentHealth += value;
+            healthBar.value = currentHealth;
+        }
     }
-
     public AbstractAbility[] SpecialAbility
     {
         get => specialAbility;
