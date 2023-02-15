@@ -18,7 +18,7 @@ public class CombSystem : MonoBehaviour
     [SerializeField] private ThirdPersonMovement tpm;
     [SerializeField] private GameObject electroPrefab;
     public static bool canMove = true;
-    private float temps,longPressDuration = 1.0f,mouseDownTime;
+    private float temps,longPressDuration = 0.2f,mouseDownTime;
     private bool click,isMouseDown,longPressActivated;
     private float powerMultiplier;
     private void Start()    

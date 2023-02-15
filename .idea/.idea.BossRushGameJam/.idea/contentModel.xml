@@ -77,6 +77,7 @@
         <e p="Scripts" t="Include">
           <e p="Boss" t="Include">
             <e p="AnimHelper.cs" t="Include" />
+            <e p="BJennyBehavior.cs" t="Include" />
             <e p="BSpiderBehavior.cs" t="Include" />
             <e p="ChickenXBehavior.cs" t="Include" />
             <e p="EnemyStats.cs" t="Include" />
@@ -84,6 +85,7 @@
             <e p="IceCubeProjectile.cs" t="Include" />
             <e p="SpiderLegsAnimation.cs" t="Include" />
           </e>
+          <e p="DestroyAfterX.cs" t="Include" />
           <e p="ExtraGravity.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="HealthPack.cs" t="Include" />
