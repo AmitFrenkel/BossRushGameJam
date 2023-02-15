@@ -29,7 +29,6 @@ public class CombSystem : MonoBehaviour
 
     void Update()
     {
-        print(tpm.CurrentAbility.AbilityName);
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             powerMultiplier = 1;

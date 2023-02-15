@@ -7,13 +7,12 @@ public class ChickenXBehavior : EnemyStats
 {
     public enum ChickenState
     {
-        intro,
         idle,
         walking,
         closeAttack
     }
 
-    private bool followPlayer;
+    [SerializeField] private bool followPlayer;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform player;
     [SerializeField] private Transform playerLegs;
@@ -24,6 +23,15 @@ public class ChickenXBehavior : EnemyStats
     [SerializeField] private List<int> attacks;//1 - tower attack | 2 - slash attack| 3 - close attack
     [SerializeField] private bool isAttacking;
     [SerializeField] private bool onceFlyingAttack;
+    [SerializeField] private bool isFlying;
+    [SerializeField] private Transform[] flightLocations;
+    [SerializeField] private float flightSpeed;
+    [SerializeField] private float flyingRotationSpeed;
+    [SerializeField] private Transform[] toastLocations;
+    [SerializeField] private Transform toastSource;
+    [SerializeField] private int toastIndex;
+    [SerializeField] private GameObject toastPrefab;
+    private int amountOfToasts = 9;
     public void EndedEntrance()
     {
         StartCoroutine(EntEnded());
@@ -36,7 +44,10 @@ public class ChickenXBehavior : EnemyStats
     private void Start()
     {
         ToDoOnStart();
-        StartCoroutine(CooldownBetweenAttacks());
+        //StartCoroutine(CooldownBetweenAttacks());
+        //StartCoroutine(EntEnded());
+        attacks[0] = 1;
+        AttackManager();
     }
     public void ExitStun()
     {
@@ -60,11 +71,16 @@ public class ChickenXBehavior : EnemyStats
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            StopCoroutine(CooldownBetweenAttacks());
+            attacks[0] = 1;
+            AttackManager();
+        }
         if (followPlayer)
         {
             agent.SetDestination(player.position);
-            if (Vector3.Distance(transform.position, player.position) <= 11f && state != ChickenState.closeAttack)
+            if (Vector3.Distance(transform.position, player.position) <= 3.5f && state != ChickenState.closeAttack)
             {
                 //Do Close attack
                 state = ChickenState.closeAttack;
@@ -95,14 +111,14 @@ public class ChickenXBehavior : EnemyStats
     public IEnumerator CloseAttack()
     {
         followPlayer = true;
-        while (Vector3.Distance(transform.position, player.position) >= 12)
+        while (Vector3.Distance(transform.position, player.position) >= 3.5f)
         {
             yield return null;
         }
-        agent.enabled = false;
-        transform.parent.parent.LookAt(player);
-        agent.enabled = true;
         followPlayer = false;
+        agent.enabled = false;
+        transform.parent.LookAt(player);
+        agent.enabled = true;
         anim.Play("CloseAttack");
         yield return new WaitForSeconds(4);
         followPlayer = true;
@@ -126,9 +142,103 @@ public class ChickenXBehavior : EnemyStats
                 break;
         }
     }
+    public void Flying()
+    {
+        isFlying = true;
+    }
     public IEnumerator TowerAttack()
     {
-        yield return null;
+        followPlayer = false;
+        agent.isStopped = true;
+        agent.enabled = false;
+        anim.SetTrigger("Fly");
+        while (!isFlying)
+        {
+            yield return null;
+        }
+        Vector3 flightTarget = Vector3.zero;
+        for (int i = 0; i < flightLocations.Length; i++)
+        {
+            flightTarget = flightLocations[i].position; 
+            while (Vector3.Distance(transform.parent.position, flightTarget) > 1f)
+            {
+                transform.parent.position = Vector3.MoveTowards(transform.parent.position, flightTarget, flightSpeed*Time.deltaTime);
+
+                Vector3 relativePos = flightTarget - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+                transform.parent.rotation = Quaternion.Lerp(transform.parent.rotation, rotation, Time.time * flyingRotationSpeed);
+
+                //transform.parent.eulerAngles = Vector3.Slerp(transform.parent.position, flightTarget, flightSpeed*Time.deltaTime);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+        flightTarget = towers[Random.Range(0, towers.Length)].position;
+        while (Vector3.Distance(transform.parent.position, flightTarget) > 0.1f)
+        {
+            transform.parent.position = Vector3.MoveTowards(transform.parent.position, flightTarget, flightSpeed * Time.deltaTime);
+
+            Vector3 relativePos = flightTarget - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+            transform.parent.rotation = Quaternion.Lerp(transform.parent.rotation, rotation, Time.time * flyingRotationSpeed);
+
+            //transform.parent.eulerAngles = Vector3.Slerp(transform.parent.position, flightTarget, flightSpeed*Time.deltaTime);
+            yield return new WaitForSeconds(0.01f);
+        }
+        anim.SetTrigger("Landed");
+        transform.parent.rotation = Quaternion.LookRotation(player.position - transform.position, Vector3.up);
+        yield return new WaitForSeconds(2f);
+        anim.SetTrigger("ToastTime");
+        amountOfToasts = 9;
+        while (amountOfToasts != 0)
+        {
+            yield return null;
+        }
+        anim.SetTrigger("StopToast");
+        yield return new WaitForSeconds(2f);
+        anim.SetTrigger("Fly");
+        while (Vector3.Distance(transform.parent.position, floor.position) > 0.1f)
+        {
+            transform.parent.position = Vector3.MoveTowards(transform.parent.position, floor.position, flightSpeed * Time.deltaTime);
+
+            Vector3 relativePos = floor.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+            transform.parent.rotation = Quaternion.Lerp(transform.parent.rotation, rotation, Time.time * flyingRotationSpeed);
+            yield return new WaitForSeconds(0.01f);
+        }
+        anim.SetTrigger("Landed");
+        agent.enabled = true;
+        yield return new WaitForSeconds(1f);
+        anim.SetTrigger("EnterStun");
+        yield return new WaitForSeconds(7f);
+        anim.SetTrigger("ExitStun");
+        yield return new WaitForSeconds(3f);
+        /*while (Vector3.Distance(transform.position, player.position) >= 3.5f)
+        {
+            yield return null;
+        }
+        followPlayer = false;
+        agent.enabled = false;
+        transform.parent.LookAt(player);
+        agent.enabled = true;
+        yield return new WaitForSeconds(4);
+        followPlayer = true;*/
+        isFlying = false;
+        followPlayer = true;
+        agent.isStopped = false;
+    }
+    public void ToastOut()
+    {
+        //create toast
+        Transform toast = Instantiate(toastPrefab, toastSource.position, Quaternion.identity, null).transform;
+        toast.LookAt(toastLocations[toastIndex]);
+        toast.GetChild(0).GetComponent<IceCubeProjectile>().warnHold = 
+           warnBehavior.CreateWarnAtAndReturn(toastLocations[toastIndex].position, toast, false);
+        toastIndex++;
+        amountOfToasts--;
+        if (toastIndex > toastLocations.Length)
+        {
+            toastIndex = 0;
+        }
     }
     public IEnumerator SlashAttack()
     {
