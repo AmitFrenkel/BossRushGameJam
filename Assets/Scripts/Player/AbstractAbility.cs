@@ -30,6 +30,12 @@ public abstract class AbstractAbility : MonoBehaviour
         set => power = value;
     }
 
+    public Sprite Icon
+    {
+        get => icon;
+        set => icon = value;
+    }
+
     // public virtual void ActivateAbility()
     // {
     //     // if (currentTimer == cooldownTimer)

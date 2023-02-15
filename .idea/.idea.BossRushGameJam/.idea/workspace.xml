@@ -20,21 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a737dd3-624f-467a-924a-afb853c6d800" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BossRushGameJam/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Dodge.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Dodge.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/ElectAttack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/ElectAttack.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/IceAttack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/IceAttack.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/IceAttackLoop.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/IceAttackLoop.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Micro_Head_Rigged.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Micro_Head_Rigged.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/ToasterAttack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/ToasterAttack.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FloorWarn2D.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FloorWarn2D.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/iceCubeProjectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/iceCubeProjectile.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SpridgeArena.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SpridgeArena.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/AbstractAbility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/AbstractAbility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/ProjectileDamage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/ProjectileDamage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ThirdPersonMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ThirdPersonMovement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,10 +47,12 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@12.1.7/Editor/Data/Graphs/SerializableTexture.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/BeamAim.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/ProjectileDamage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/LaserBeamAbility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ThirdPersonMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/ElectAttack.cs" root0="FORCE_HIGHLIGHTING" />
@@ -80,14 +83,15 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/ChangeIcon.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/Menu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Boss/EnemyStats.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Player/ProjectileDamage.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/DodgeRoll.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/ElectAttack.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/IceAttack.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/ProjectileDamage.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimHelper.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/AbstractAbility.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ThirdPersonMovement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/CameraController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player/CombSystem.cs" />
       </list>
     </option>
@@ -166,6 +170,8 @@
       <workItem from="1676101206141" duration="5918000" />
       <workItem from="1676226916644" duration="6000" />
       <workItem from="1676227612033" duration="11973000" />
+      <workItem from="1676405838778" duration="3524000" />
+      <workItem from="1676445770533" duration="5792000" />
     </task>
     <servers />
   </component>
@@ -214,10 +220,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1676245381384" />
-    <state x="764" y="194" key="RiderGenerateDialog" timestamp="1676324740870">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-1156" y="194" key="RiderGenerateDialog" timestamp="1676461400736">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1156" y="194" key="RiderGenerateDialog/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1676227642807" />
+    <state x="-1156" y="194" key="RiderGenerateDialog/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1676461400736" />
     <state x="764" y="194" key="RiderGenerateDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1676324740870" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1674911700088">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -243,6 +249,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="0" width="1555" height="1027" key="dock-window-3/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1676323532443" />
+    <state width="600" height="428" key="javadoc.popup" timestamp="1676461255999">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="600" height="428" key="javadoc.popup/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1676461255999" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1675727758685">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -20,7 +20,7 @@ public class CombSystem : MonoBehaviour
     public static bool canMove = true;
     private float temps,longPressDuration = 1.0f,mouseDownTime;
     private bool click,isMouseDown,longPressActivated;
-
+    private float powerMultiplier;
     private void Start()    
     {
         canMove = true;
@@ -29,18 +29,28 @@ public class CombSystem : MonoBehaviour
 
     void Update()
     {
+        print(tpm.CurrentAbility.AbilityName);
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
+            powerMultiplier = 1;
             anim.SetBool("hit1", false);
         }
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
         {
+            powerMultiplier = 1.5f;
             anim.SetBool("hit2", false);
         }
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
         {
+            powerMultiplier = 2f;
             anim.SetBool("hit3", false);
             anim.SetBool("hit1", false);
+
+        }
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("ElectAttack"))
+        {
+            anim.SetBool("ElectAttack",false);
 
         }
         if (Input.GetMouseButtonDown(0))
@@ -61,12 +71,11 @@ public class CombSystem : MonoBehaviour
                     {
                         // Long press detected
                         Debug.Log("Long Press");
-                        anim.SetTrigger("ElectAttack");
                         switch (tpm.CurrentAbility.AbilityName)
                             {
                                 
                                 case StatusEffects.elect:
-                                    anim.SetTrigger("ElectAttack");
+                                    anim.SetBool("ElectAttack",true);
                                     break;
                                 case StatusEffects.ice:
                                     anim.SetTrigger("IceAttack");
@@ -96,82 +105,6 @@ public class CombSystem : MonoBehaviour
                 longPressActivated = false;
             }
         }
-        // if (Input.GetMouseButtonDown (0))
-        // {
-        //     temps = Time.time ;
-        //     click = true ;
-        // }
-        //
-        // if (click && (Time.time - temps) > 0.2 )
-        // {
-        //     // long click effect
-        //     // anim.SetTrigger("ElectAttack");
-        //
-        //     switch (tpm.CurrentAbility.AbilityName)
-        //     {
-        //         
-        //         case StatusEffects.elect:
-        //             anim.SetTrigger("ElectAttack");
-        //             break;
-        //         case StatusEffects.ice:
-        //             anim.SetTrigger("IceAttack");
-        //             break;
-        //         case StatusEffects.fire:
-        //             anim.SetTrigger("FireAttack");
-        //             break;
-        //     }
-        // }
-        //
-        // if (Input.GetMouseButtonUp(0))
-        // {
-        //     click = false ;
-        //
-        //     if ( (Time.time - temps) < 0.2 )
-        //     {
-        //         // short click effect
-        //         OnClick();
-        //     }
-        // }
-        //cooldown time
-        // if (Time.time > nextFireTime)
-        // {
-        //     if (Input.GetMouseButtonDown (0))
-        //     {
-        //         temps = Time.time ;
-        //         click = true ;
-        //     }
-        //
-        //     if (click && (Time.time - temps) > 0.2 )
-        //     {
-        //         // long click effect
-        //         // anim.SetTrigger("ElectAttack");
-        //
-        //         switch (tpm.CurrentAbility.AbilityName)
-        //         {
-        //         
-        //             case StatusEffects.elect:
-        //                 anim.SetTrigger("ElectAttack");
-        //                 break;
-        //             case StatusEffects.ice:
-        //                 anim.SetTrigger("IceAttack");
-        //                 break;
-        //             case StatusEffects.fire:
-        //                 anim.SetTrigger("FireAttack");
-        //                 break;
-        //         }
-        //     }
-        //
-        //     if (Input.GetMouseButtonUp(0))
-        //     {
-        //         click = false ;
-        //
-        //         if ( (Time.time - temps) < 0.2 )
-        //         {
-        //             // short click effect
-        //             OnClick();
-        //         }
-        //     }
-        // }
     }
 
     void OnClick()
@@ -204,7 +137,7 @@ public class CombSystem : MonoBehaviour
 
             // reduce enemy health
             print("hit!");
-            tpm.AddLaserCharge(tpm.Player.Power * 2f);
+            tpm.AddLaserCharge(tpm.Player.Power * powerMultiplier);
         }
     }
     public void ToggleCollider(bool toggle)

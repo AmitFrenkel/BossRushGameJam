@@ -19,38 +19,46 @@ public class ProjectileDamage : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        switch (player.CurrentAbility.AbilityName)
-                {
-                    case StatusEffects.elect:
-                        other.transform.GetComponent<EnemyStats>().AddEffect(player.CurrentAbility.AbilityName);
-                        switch (other.transform.GetComponent<EnemyStats>().GetCurrentStatus())
-                        {
-                            case StatusEffects.ice:
-                                other.transform.GetComponent<EnemyStats>().ChangeHealth(other.transform.GetComponent<EnemyStats>().GetCurrentIceMultiplier()*-player.CurrentAbility.Power);
-                                break;
-                            case StatusEffects.fire:
-                                other.transform.GetComponent<EnemyStats>().ReduceFire(10);
-                                other.transform.GetComponent<EnemyStats>().ChangeHealth(1.5f*-player.CurrentAbility.Power);
-                                break;
-                            case StatusEffects.nothing:
-                                other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
-                                break;
-                            case StatusEffects.elect:
-                                other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
-                                break;
-                        }
-                        break;
-                    case StatusEffects.ice:
-                        other.transform.GetComponent<EnemyStats>().AddEffect(player.CurrentAbility.AbilityName);
-                        other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
-                        break;
-                    case StatusEffects.fire:
-                        other.transform.GetComponent<EnemyStats>().AddEffect(player.CurrentAbility.AbilityName);
-                        other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
-                        break;
-                }
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+            switch (player.CurrentAbility.AbilityName)
+            {
+                case StatusEffects.elect:
+                    other.transform.GetComponent<EnemyStats>().AddEffect(player.CurrentAbility.AbilityName);
+                    switch (other.transform.GetComponent<EnemyStats>().GetCurrentStatus())
+                    {
+                        case StatusEffects.ice:
+                            other.transform.GetComponent<EnemyStats>().ChangeHealth(
+                                other.transform.GetComponent<EnemyStats>().GetCurrentIceMultiplier() *
+                                -player.CurrentAbility.Power);
+                            break;
+                        case StatusEffects.fire:
+                            other.transform.GetComponent<EnemyStats>().ReduceFire(10);
+                            other.transform.GetComponent<EnemyStats>()
+                                .ChangeHealth(1.5f * -player.CurrentAbility.Power);
+                            break;
+                        case StatusEffects.nothing:
+                            other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
+                            break;
+                        case StatusEffects.elect:
+                            other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
+                            break;
+                    }
+
+                    break;
+                case StatusEffects.ice:
+                    other.transform.GetComponent<EnemyStats>().AddEffect(player.CurrentAbility.AbilityName);
+                    other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
+                    break;
+                case StatusEffects.fire:
+                    other.transform.GetComponent<EnemyStats>().AddEffect(player.CurrentAbility.AbilityName);
+                    other.transform.GetComponent<EnemyStats>().ChangeHealth(-player.CurrentAbility.Power);
+                    break;
+            }
+        }
     }
     
 }

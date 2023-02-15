@@ -20,7 +20,8 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] private MultiAimConstraint headConstraint;
     [SerializeField] private Transform enemyNeck;
     [SerializeField] private Transform cameraFront;
-
+    [SerializeField] private Image[] abilitiesImages;
+    [SerializeField] private Sprite[] abilitiesSprites;
     [SerializeField] private Transform laserPos;
     [SerializeField] private Slider energyBar;
 
@@ -45,6 +46,24 @@ public class ThirdPersonMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         abilities = player.SpecialAbility;
         currentAbility = abilities[0];
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            if (abilities[i].CanUse)
+            {
+                abilitiesImages[i].sprite = abilities[i].Icon;
+                abilitiesImages[i].color = new Color(abilitiesImages[i].color.r,
+                    abilitiesImages[i].color.g, abilitiesImages[i].color.b, 0.1294118f);
+            }
+            else
+            {
+                abilitiesImages[i].sprite = abilitiesSprites[i];
+
+            }
+            
+        }
+
+        abilitiesImages[currentAbilityIndex].color = new Color(abilitiesImages[currentAbilityIndex].color.r,
+            abilitiesImages[currentAbilityIndex].color.g, abilitiesImages[currentAbilityIndex].color.b, 1);
     }
 
     private void Update()
@@ -87,12 +106,14 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         else if (!isGrounded && rigidBody.velocity.y > 0)
         {
-            rigidBody.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            rigidBody.velocity += Vector3.up * (Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime);
         }
 
         // Change ability
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            abilitiesImages[currentAbilityIndex].color = new Color(abilitiesImages[currentAbilityIndex].color.r,
+                abilitiesImages[currentAbilityIndex].color.g,abilitiesImages[currentAbilityIndex].color.b,0.1294118f);
             currentAbilityIndex++;
             if (currentAbilityIndex == abilities.Length)
             {
@@ -108,6 +129,8 @@ public class ThirdPersonMovement : MonoBehaviour
                     break;
                 }
             }
+            abilitiesImages[currentAbilityIndex].color = new Color(abilitiesImages[currentAbilityIndex].color.r,
+                abilitiesImages[currentAbilityIndex].color.g,abilitiesImages[currentAbilityIndex].color.b,1);
             currentAbility = abilities[currentAbilityIndex];
 
         }

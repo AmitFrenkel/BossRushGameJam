@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerAnimHelper : MonoBehaviour
@@ -10,6 +11,8 @@ public class PlayerAnimHelper : MonoBehaviour
     [SerializeField] private CombSystem comb;
     [SerializeField] private Transform icePosition, toastPosition,electricalPosition;
     [SerializeField] private GameObject ice, toast, electric;
+    [SerializeField] private float power,toastPower;
+    [SerializeField] private Animator anim;
     public void EnableCollider()
     {
         comb.ToggleCollider(true);
@@ -43,18 +46,38 @@ public class PlayerAnimHelper : MonoBehaviour
 
     public void ActivateIce()
     {
-        var rb = Instantiate(ice,icePosition).GetComponent<Rigidbody>();
-        var startPos = rb.transform.localPosition.z;
+        var rb = Instantiate(ice,icePosition.position,quaternion.identity,null).GetComponent<Rigidbody>();
+        // var startPos = rb.transform.localPosition.z;
         for (int i = 0; i < tpm.CurrentAbility.GetComponent<IceAttack>().NumberOfIce; i++)
         {
-            while (startPos < startPos+2*Vector3.forward.z)
-            {
-                rb.AddForce(Vector3.forward,ForceMode.Impulse);
-            }
-            rb.useGravity = true;
+            rb.AddForce((transform.forward+Vector3.up*0.8f)*power);
+            // StartCoroutine(DestroyRB(rb.gameObject));
         }
+        anim.SetTrigger("ExitIceAttack");
+        CanMove();
        
     }
+    public void ActivateToast()
+    {
+        // var startPos = rb.transform.localPosition.z;
+        // for (int i = 0; i < tpm.CurrentAbility.GetComponent<IceAttack>().NumberOfIce; i++)
+        // {
+        //     var rb = Instantiate(ice,icePosition.position,quaternion.identity,null).GetComponent<Rigidbody>();
+        //     rb.AddForce((transform.forward+Vector3.up*0.4f)*power);
+        //     // StartCoroutine(DestroyRB(rb.gameObject));
+        // }
+        var rb = Instantiate(toast,toastPosition.position,quaternion.identity,null).GetComponent<Rigidbody>();
+        rb.AddForce((transform.forward+Vector3.up*0.4f)*toastPower);
+        // anim.SetTrigger("ExitIceAttack");
+        CanMove();
+       
+    }
+
+    // private IEnumerator DestroyRB(GameObject rb)
+    // {
+    //     yield return new WaitForSeconds(0.5f);
+    //     Destroy(rb);
+    // }
 
     // public void ActivateAbility()
     // {
