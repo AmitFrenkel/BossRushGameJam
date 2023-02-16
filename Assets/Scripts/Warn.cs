@@ -20,7 +20,7 @@ public class Warn : MonoBehaviour
         //transform.localScale = Vector3.zero;
         target = settingTarget;
         startPos = target.position;
-        transform.position = new Vector3(target.position.x, 0.6043496f, target.position.z);
+        transform.position = new Vector3(target.position.x, 0.1f, target.position.z);
     }
     private void FixedUpdate()
     {

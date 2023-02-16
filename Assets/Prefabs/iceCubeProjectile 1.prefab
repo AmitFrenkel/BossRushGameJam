@@ -114,6 +114,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   knockbackRange: 500
+  originOverride: {fileID: 0}
+  canDoDamage: 1
 --- !u!54 &1356950840674912947
 Rigidbody:
   m_ObjectHideFlags: 0

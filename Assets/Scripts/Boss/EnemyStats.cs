@@ -75,8 +75,8 @@ public class EnemyStats : MonoBehaviour
         while (fireEffectAmount > 0)
         {
             yield return new WaitForSeconds(0.1f);
-            fireEffectAmount -= 1f;
-            ChangeHealth(-0.1f);
+            fireEffectAmount -= 0.5f;
+            ChangeHealth(-0.06f);
             fireStatus.value = fireEffectAmount;
         }
         fireEffectAmount = 0;

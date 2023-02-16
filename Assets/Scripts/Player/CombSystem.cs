@@ -29,7 +29,6 @@ public class CombSystem : MonoBehaviour
 
     void Update()
     {
-        print(tpm.CurrentAbility.AbilityName);
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
             powerMultiplier = 1;
@@ -165,6 +164,11 @@ public class CombSystem : MonoBehaviour
             // reduce enemy health
             print("hit!");
             tpm.AddLaserCharge(tpm.Player.Power);
+        }
+        else if(other.gameObject.CompareTag("Ice"))
+        {
+            Instantiate(electroPrefab, transform.position, Quaternion.identity, null);
+            other.transform.parent.GetComponent<Destroyable>().ReduceHealth();
         }
     }
     public void ToggleCollider(bool toggle)

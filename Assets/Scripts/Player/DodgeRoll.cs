@@ -37,10 +37,10 @@ public class DodgeRoll : MonoBehaviour
     private IEnumerator StartRoll()
     {
         CombSystem.canMove = false;
-        renderer.material = blue;
+        //renderer.material = blue;
         canBeDamaged = false;
         yield return new WaitForSeconds(0.1f);
-        renderer.material = reg;
+        //renderer.material = reg;
         canBeDamaged = true;
         isRolling = true;
         while (rigidbody.velocity.magnitude > 0.2f)
