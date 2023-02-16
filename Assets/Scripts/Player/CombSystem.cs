@@ -138,6 +138,11 @@ public class CombSystem : MonoBehaviour
             print("hit!");
             tpm.AddLaserCharge(tpm.Player.Power * powerMultiplier);
         }
+        else if(other.gameObject.CompareTag("Ice"))
+        {
+            Instantiate(electroPrefab, transform.position, Quaternion.identity, null);
+            other.transform.parent.GetComponent<Destroyable>().ReduceHealth();
+        }
     }
     public void ToggleCollider(bool toggle)
     {

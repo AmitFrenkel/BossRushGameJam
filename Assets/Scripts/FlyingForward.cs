@@ -9,6 +9,10 @@ public class FlyingForward : MonoBehaviour
     {
         transform.position += transform.forward * speed * Time.deltaTime;
     }
+    public void Straigthen()
+    {
+        transform.rotation = Quaternion.identity;
+    }
     public void DestroyPlease()
     {
         Destroy(gameObject);

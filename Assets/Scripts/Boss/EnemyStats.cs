@@ -75,8 +75,8 @@ public class EnemyStats : MonoBehaviour
         while (fireEffectAmount > 0)
         {
             yield return new WaitForSeconds(0.1f);
-            fireEffectAmount -= 1f;
-            ChangeHealth(-0.1f);
+            fireEffectAmount -= 0.5f;
+            ChangeHealth(-0.06f);
             fireStatus.value = fireEffectAmount;
         }
         fireEffectAmount = 0;
@@ -93,6 +93,7 @@ public class EnemyStats : MonoBehaviour
         int ices = iceEffectAmount;
         iceEffectAmount = 0;
         currentStatus = StatusEffects.nothing;
+        iceStatus.gameObject.SetActive(false);
         return (float)(0.3*ices);
     }
     public void ReduceFire(float fireReduce)
@@ -118,6 +119,9 @@ public class EnemyStats : MonoBehaviour
         switch (currentStatus)
         {
             case StatusEffects.nothing:
+                if (status == StatusEffects.elect)
+                    return;
+
                 currentStatus = status;
                 if (currentStatus == StatusEffects.ice)
                 {
@@ -135,7 +139,7 @@ public class EnemyStats : MonoBehaviour
             case StatusEffects.elect:
                 break;
             case StatusEffects.ice:
-                if (currentStatus == StatusEffects.ice)
+                if (status == StatusEffects.ice)
                 {
                     iceEffectAmount++;
                     iceStatus.value = iceEffectAmount;
@@ -149,19 +153,19 @@ public class EnemyStats : MonoBehaviour
                         //Do stun
                     }
                 }
-                else if (currentStatus == StatusEffects.fire)
+                else if (status == StatusEffects.fire)
                 {
                     iceEffectAmount = 0;
-                    fireStatus.gameObject.SetActive(false);
+                    iceStatus.gameObject.SetActive(false);
                     currentStatus = StatusEffects.nothing;
                 }
                 break;
             case StatusEffects.fire:
-                if (currentStatus == StatusEffects.fire)
+                if (status == StatusEffects.fire)
                 {
                     fireEffectAmount = Mathf.Min(fireEffectAmount+fireAddAmount,fireEffectCap);
                 }
-                else if (currentStatus == StatusEffects.ice)
+                else if (status == StatusEffects.ice)
                 {
                     fireEffectAmount = 0;
                     fireStatus.gameObject.SetActive(false);
