@@ -9,4 +9,10 @@ public class Orienation : MonoBehaviour
     {
         transform.eulerAngles = new Vector3(0, target.eulerAngles.y, 0);
     }
+
+    public Transform Target
+    {
+        get => target;
+        set => target = value;
+    }
 }

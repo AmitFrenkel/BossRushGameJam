@@ -13,6 +13,8 @@ public class PlayerAnimHelper : MonoBehaviour
     [SerializeField] private GameObject ice, toast, electric;
     [SerializeField] private float power,toastPower;
     [SerializeField] private Animator anim;
+    [SerializeField] private Orienation orienation;
+
     public void EnableCollider()
     {
         comb.ToggleCollider(true);
@@ -46,11 +48,12 @@ public class PlayerAnimHelper : MonoBehaviour
 
     public void ActivateIce()
     {
+        tpm.transform.rotation = orienation.Target.rotation;
         var rb = Instantiate(ice,icePosition.position,quaternion.identity,null).GetComponent<Rigidbody>();
         // var startPos = rb.transform.localPosition.z;
         for (int i = 0; i < tpm.CurrentAbility.GetComponent<IceAttack>().NumberOfIce; i++)
         {
-            rb.AddForce((transform.forward+Vector3.up*0.8f)*power);
+            rb.AddForce((orienation.Target.forward+Vector3.up*0.8f)*power);
             // StartCoroutine(DestroyRB(rb.gameObject));
         }
         anim.SetTrigger("ExitIceAttack");
@@ -67,7 +70,7 @@ public class PlayerAnimHelper : MonoBehaviour
         //     // StartCoroutine(DestroyRB(rb.gameObject));
         // }
         var rb = Instantiate(toast,toastPosition.position,quaternion.identity,null).GetComponent<Rigidbody>();
-        rb.AddForce((transform.forward+Vector3.up*0.4f)*toastPower);
+        rb.AddForce((orienation.Target.forward+Vector3.up*0.4f)*toastPower);
         // anim.SetTrigger("ExitIceAttack");
         // CanMove();
        

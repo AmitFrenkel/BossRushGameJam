@@ -89,6 +89,9 @@
           <e p="ExtraGravity.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="HealthPack.cs" t="Include" />
+          <e p="MainMenu" t="Include">
+            <e p="MainMenuManager.cs" t="Include" />
+          </e>
           <e p="Player" t="Include">
             <e p="AbstractAbility.cs" t="Include" />
             <e p="BeamAim.cs" t="Include" />
@@ -111,7 +114,6 @@
           <e p="ThirdPersonMovement.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="ChangeIcon.cs" t="Include" />
-            <e p="Menu.cs" t="Include" />
           </e>
           <e p="Warn.cs" t="Include" />
           <e p="WarnBehavior.cs" t="Include" />

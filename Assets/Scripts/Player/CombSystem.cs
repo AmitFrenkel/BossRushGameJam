@@ -71,6 +71,7 @@ public class CombSystem : MonoBehaviour
                     {
                         // Long press detected
                         Debug.Log("Long Press");
+                        CameraController.goForward = true;
                         switch (tpm.CurrentAbility.AbilityName)
                             {
                                 
@@ -103,6 +104,7 @@ public class CombSystem : MonoBehaviour
                 }
                 isMouseDown = false;
                 longPressActivated = false;
+                CameraController.goForward = false;
             }
         }
     }
@@ -132,12 +134,37 @@ public class CombSystem : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyStats>().ChangeHealth(-tpm.Player.Power);
+            if (longPressActivated && tpm.CurrentAbility.AbilityName == StatusEffects.elect)
+            {
+                other.transform.GetComponent<EnemyStats>().AddEffect(tpm.CurrentAbility.AbilityName);
+                switch (other.transform.GetComponent<EnemyStats>().GetCurrentStatus())
+                {
+                    case StatusEffects.ice:
+                        other.transform.GetComponent<EnemyStats>().ChangeHealth(
+                            other.transform.GetComponent<EnemyStats>().GetCurrentIceMultiplier() *
+                            -tpm.CurrentAbility.Power);
+                        break;
+                    case StatusEffects.fire:
+                        other.transform.GetComponent<EnemyStats>().ReduceFire(10);
+                        other.transform.GetComponent<EnemyStats>()
+                            .ChangeHealth(1.5f * -tpm.CurrentAbility.Power);
+                        break;
+                    case StatusEffects.nothing:
+                        other.transform.GetComponent<EnemyStats>().ChangeHealth(-tpm.CurrentAbility.Power);
+                        break;
+                    case StatusEffects.elect:
+                        other.transform.GetComponent<EnemyStats>().ChangeHealth(-tpm.CurrentAbility.Power);
+                        break;
+                }
+                powerMultiplier = 1;
+                return;
+            }
+            other.GetComponent<EnemyStats>().ChangeHealth(-tpm.Player.Power*powerMultiplier);
             Instantiate(electroPrefab, transform.position, Quaternion.identity, null);
-
+            powerMultiplier = 1;
             // reduce enemy health
             print("hit!");
-            tpm.AddLaserCharge(tpm.Player.Power * powerMultiplier);
+            tpm.AddLaserCharge(tpm.Player.Power);
         }
     }
     public void ToggleCollider(bool toggle)

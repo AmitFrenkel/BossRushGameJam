@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform playerObj;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float rotationSpeed;
+    public static bool goForward=false;
+    
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -16,6 +18,7 @@ public class CameraController : MonoBehaviour
     }
     void Update()
     {
+        print($"go{goForward}");
         //Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         //orientation.forward = viewDir.normalized;
         print(CombSystem.canMove +"AAAA");
@@ -27,6 +30,11 @@ public class CameraController : MonoBehaviour
         if (inputDir != Vector3.zero && CombSystem.canMove)
         {
             playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+        }
+
+        if (goForward)
+        {
+            playerObj.forward = Vector3.Slerp(playerObj.forward, orientation.forward, Time.deltaTime * rotationSpeed);
         }
     }
 }

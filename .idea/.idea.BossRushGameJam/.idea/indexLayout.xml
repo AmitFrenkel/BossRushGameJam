@@ -39,7 +39,6 @@
       <Path>Logs</Path>
       <Path>MacBuild</Path>
       <Path>MacBuild.app</Path>
-      <Path>Temp</Path>
       <Path>UserSettings</Path>
       <Path>obj</Path>
     </explicitExcludes>

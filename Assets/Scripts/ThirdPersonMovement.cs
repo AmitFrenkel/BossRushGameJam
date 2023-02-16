@@ -68,7 +68,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Update()
     {
-        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -142,12 +141,16 @@ public class ThirdPersonMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1) && energyBar.value > 0)
         {
             beam.SetActive(true);
+            CombSystem.canMove = false;
+            CameraController.goForward = true;
             // StartCoroutine(StartOrStopBeam(true));
         }
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             // StartCoroutine(StartOrStopBeam(false));
             beam.SetActive(false);
+            CameraController.goForward = false;
+            CombSystem.canMove = true;
             StartCoroutine(LaserCharge());
         }
         else if (beam.activeSelf && energyBar.value == 0)

@@ -11798,6 +11798,7 @@ MonoBehaviour:
   power: 200
   toastPower: 600
   anim: {fileID: 654308587}
+  orienation: {fileID: 2020804302}
 --- !u!1 &703774644
 GameObject:
   m_ObjectHideFlags: 0
@@ -25385,6 +25386,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530307312338785652, guid: c08cbc5f47b6eab40bfb83d4f5577a8a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15287174
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530307312338785652, guid: c08cbc5f47b6eab40bfb83d4f5577a8a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.065814e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530307312338785652, guid: c08cbc5f47b6eab40bfb83d4f5577a8a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.3322676e-16
       objectReference: {fileID: 0}
     - target: {fileID: 6530307312338785652, guid: c08cbc5f47b6eab40bfb83d4f5577a8a,
         type: 3}
