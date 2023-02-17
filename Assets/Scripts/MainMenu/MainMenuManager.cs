@@ -34,6 +34,12 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    public void ChangeCanvas(GameObject first, GameObject second)
+    {
+        first.SetActive(false);
+        second.SetActive(true);
+    }
+
     public void StartToLoadScene(int sceneIndex)
     {
         opening.gameObject.SetActive(true);

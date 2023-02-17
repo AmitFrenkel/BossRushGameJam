@@ -85,8 +85,10 @@
             <e p="IceCubeProjectile.cs" t="Include" />
             <e p="SpiderLegsAnimation.cs" t="Include" />
           </e>
+          <e p="Destroyable.cs" t="Include" />
           <e p="DestroyAfterX.cs" t="Include" />
           <e p="ExtraGravity.cs" t="Include" />
+          <e p="FlyingForward.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="HealthPack.cs" t="Include" />
           <e p="MainMenu" t="Include">
